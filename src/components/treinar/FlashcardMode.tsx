@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { X, Check } from 'lucide-react'
-import type { StudyCard } from '../../data/treinarMock'
+import type { StudyCard } from '../../types/treinar'
 
 type Props = {
   card: StudyCard

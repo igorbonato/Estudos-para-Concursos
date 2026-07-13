@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import type { StudyCard } from '../../data/treinarMock'
+import type { StudyCard } from '../../types/treinar'
 
 type Props = {
   card: StudyCard

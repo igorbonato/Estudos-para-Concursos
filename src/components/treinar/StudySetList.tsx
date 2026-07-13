@@ -1,12 +1,22 @@
-import { Layers } from 'lucide-react'
-import type { StudySet } from '../../data/treinarMock'
+import { Layers, Loader2 } from 'lucide-react'
+import type { StudySet } from '../../types/treinar'
 
 type Props = {
   sets: StudySet[]
+  loading: boolean
   onSelect: (set: StudySet) => void
 }
 
-export default function StudySetList({ sets, onSelect }: Props) {
+export default function StudySetList({ sets, loading, onSelect }: Props) {
+  if (loading) {
+    return (
+      <div className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-border p-10 text-sm text-muted-foreground">
+        <Loader2 size={16} className="animate-spin" />
+        Carregando listas...
+      </div>
+    )
+  }
+
   if (sets.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-border p-10 text-sm text-muted-foreground">

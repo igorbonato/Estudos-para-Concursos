@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ArrowLeft } from 'lucide-react'
-import type { StudySet } from '../../data/treinarMock'
+import type { StudySet } from '../../types/treinar'
 import FlashcardMode from './FlashcardMode'
 import MultipleChoiceMode from './MultipleChoiceMode'
 

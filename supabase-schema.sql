@@ -83,11 +83,27 @@ CREATE POLICY "allow_all_sessoes_estudo" ON sessoes_estudo
   USING (true) WITH CHECK (true);
 
 -- =========================================================
+-- flashcard_decks (agrupamento de flashcards usado pelo módulo Treinar,
+-- separado de assuntos_pastas que é o conceito usado por Cadernos)
+-- =========================================================
+CREATE TABLE flashcard_decks (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  nome text NOT NULL
+);
+
+ALTER TABLE flashcard_decks ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "allow_all_flashcard_decks" ON flashcard_decks
+  FOR ALL TO anon, authenticated
+  USING (true) WITH CHECK (true);
+
+-- =========================================================
 -- flashcards
 -- =========================================================
 CREATE TABLE flashcards (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  disciplina_id uuid NOT NULL REFERENCES disciplinas (id) ON DELETE CASCADE,
+  disciplina_id uuid REFERENCES disciplinas (id) ON DELETE CASCADE,
+  deck_id uuid REFERENCES flashcard_decks (id) ON DELETE CASCADE,
   pergunta text NOT NULL,
   resposta text NOT NULL,
   proxima_revisao timestamptz,
