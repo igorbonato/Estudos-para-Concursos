@@ -3,7 +3,7 @@ import { ConcursoProvider } from './context/ConcursoContext'
 import Layout from './components/layout/Layout'
 import Dashboard from './pages/Dashboard'
 import Cadernos from './pages/Cadernos'
-import Flashcards from './pages/Flashcards'
+import Treinar from './pages/Treinar'
 import Redacao from './pages/Redacao'
 import Configuracoes from './pages/Configuracoes'
 
@@ -15,7 +15,7 @@ export default function App() {
           <Route element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="cadernos" element={<Cadernos />} />
-            <Route path="flashcards" element={<Flashcards />} />
+            <Route path="treinar" element={<Treinar />} />
             <Route path="redacao" element={<Redacao />} />
             <Route path="configuracoes" element={<Configuracoes />} />
           </Route>

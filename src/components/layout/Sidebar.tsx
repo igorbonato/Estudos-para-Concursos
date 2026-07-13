@@ -76,8 +76,8 @@ export default function Sidebar() {
           }
         />
         <NavItem
-          to="/flashcards"
-          label="Flashcards"
+          to="/treinar"
+          label="Treinar"
           icon={
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <rect x="2" y="3" width="10" height="7" rx="1.3" stroke="currentColor" strokeWidth="1.4" />
