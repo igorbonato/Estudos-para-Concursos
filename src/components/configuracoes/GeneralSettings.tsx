@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Download, Trash2 } from 'lucide-react'
+import { Download, Trash2, Loader2 } from 'lucide-react'
 import ToggleSwitch from '../ui/ToggleSwitch'
 import { useConcurso } from '../../context/ConcursoContext'
 
 export default function GeneralSettings() {
   const { concursos, selectedConcurso, resetConcursos } = useConcurso()
   const [confirmingDelete, setConfirmingDelete] = useState(false)
+  const [deleting, setDeleting] = useState(false)
 
   const handleExport = () => {
     const data = { concursos, selectedConcurso }
@@ -18,8 +19,10 @@ export default function GeneralSettings() {
     URL.revokeObjectURL(url)
   }
 
-  const handleDelete = () => {
-    resetConcursos()
+  const handleDelete = async () => {
+    setDeleting(true)
+    await resetConcursos()
+    setDeleting(false)
     setConfirmingDelete(false)
   }
 
@@ -81,8 +84,10 @@ export default function GeneralSettings() {
                   </button>
                   <button
                     onClick={handleDelete}
-                    className="rounded-md bg-danger px-3 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90"
+                    disabled={deleting}
+                    className="flex items-center gap-1.5 rounded-md bg-danger px-3 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
                   >
+                    {deleting && <Loader2 size={13} className="animate-spin" />}
                     Confirmar
                   </button>
                 </div>

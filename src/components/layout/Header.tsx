@@ -1,7 +1,7 @@
 import { useConcurso } from '../../context/ConcursoContext'
 
 export default function Header() {
-  const { concursos, selectedConcurso, setSelectedConcurso } = useConcurso()
+  const { concursos, selectedConcurso, setSelectedConcurso, loading } = useConcurso()
 
   return (
     <header className="flex h-header items-center justify-between border-b border-border bg-card px-6">
@@ -19,13 +19,18 @@ export default function Header() {
         <div className="relative">
           <select
             id="concurso-select"
-            value={selectedConcurso}
-            onChange={e => setSelectedConcurso(e.target.value)}
-            className="cursor-pointer appearance-none rounded-md border border-primary/25 bg-primary/10 py-1.5 pl-3 pr-8 text-sm font-semibold text-primary outline-none"
+            value={selectedConcurso?.id ?? ''}
+            disabled={loading}
+            onChange={e => {
+              const found = concursos.find(c => c.id === e.target.value)
+              if (found) setSelectedConcurso(found)
+            }}
+            className="cursor-pointer appearance-none rounded-md border border-primary/25 bg-primary/10 py-1.5 pl-3 pr-8 text-sm font-semibold text-primary outline-none disabled:cursor-wait disabled:opacity-60"
           >
+            {loading && <option value="">Carregando...</option>}
             {concursos.map(c => (
-              <option key={c} value={c} className="bg-card text-foreground">
-                {c}
+              <option key={c.id} value={c.id} className="bg-card text-foreground">
+                {c.nome}
               </option>
             ))}
           </select>

@@ -1,15 +1,27 @@
 import { useState } from 'react'
-import { Trash2, Plus } from 'lucide-react'
+import { Trash2, Plus, Loader2 } from 'lucide-react'
 import { useConcurso } from '../../context/ConcursoContext'
 
 export default function ConcursosSettings() {
-  const { concursos, selectedConcurso, setSelectedConcurso, addConcurso, removeConcurso } = useConcurso()
+  const { concursos, loading, error, selectedConcurso, setSelectedConcurso, addConcurso, removeConcurso } =
+    useConcurso()
   const [novoConcurso, setNovoConcurso] = useState('')
+  const [adding, setAdding] = useState(false)
+  const [removingId, setRemovingId] = useState<string | null>(null)
 
-  const handleAdd = () => {
-    if (!novoConcurso.trim()) return
-    addConcurso(novoConcurso)
+  const handleAdd = async () => {
+    if (!novoConcurso.trim() || adding) return
+    setAdding(true)
+    await addConcurso(novoConcurso)
+    setAdding(false)
     setNovoConcurso('')
+  }
+
+  const handleRemove = async (id: string) => {
+    if (removingId) return
+    setRemovingId(id)
+    await removeConcurso(id)
+    setRemovingId(null)
   }
 
   return (
@@ -19,25 +31,44 @@ export default function ConcursosSettings() {
         Essa lista alimenta o seletor de "Concurso Atual" no cabeçalho do app.
       </p>
 
+      {error && (
+        <div className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-xs text-danger">{error}</div>
+      )}
+
       <div className="flex gap-2">
         <input
           value={novoConcurso}
           onChange={e => setNovoConcurso(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handleAdd()}
           placeholder="ex: TRF3"
-          className="flex-1 rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary/40"
+          disabled={adding}
+          className="flex-1 rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary/40 disabled:opacity-60"
         />
         <button
           onClick={handleAdd}
-          disabled={!novoConcurso.trim()}
+          disabled={!novoConcurso.trim() || adding}
           className="flex flex-shrink-0 items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
         >
-          <Plus size={15} />
-          Adicionar
+          {adding ? (
+            <>
+              <Loader2 size={15} className="animate-spin" />
+              Adicionando...
+            </>
+          ) : (
+            <>
+              <Plus size={15} />
+              Adicionar
+            </>
+          )}
         </button>
       </div>
 
-      {concursos.length === 0 ? (
+      {loading ? (
+        <div className="flex items-center justify-center gap-2 rounded-lg border border-border p-8 text-sm text-muted-foreground">
+          <Loader2 size={16} className="animate-spin" />
+          Carregando concursos...
+        </div>
+      ) : concursos.length === 0 ? (
         <div className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
           Nenhum concurso cadastrado.
         </div>
@@ -45,15 +76,17 @@ export default function ConcursosSettings() {
         <div className="space-y-2">
           {concursos.map(c => (
             <div
-              key={c}
+              key={c.id}
               onClick={() => setSelectedConcurso(c)}
               className={`flex cursor-pointer items-center justify-between rounded-lg border p-3 transition-colors ${
-                c === selectedConcurso ? 'border-primary/30 bg-primary/[0.06]' : 'border-border bg-card hover:border-primary/20'
+                c.id === selectedConcurso?.id
+                  ? 'border-primary/30 bg-primary/[0.06]'
+                  : 'border-border bg-card hover:border-primary/20'
               }`}
             >
               <div className="flex items-center gap-2">
-                <span className="text-sm text-foreground">{c}</span>
-                {c === selectedConcurso && (
+                <span className="text-sm text-foreground">{c.nome}</span>
+                {c.id === selectedConcurso?.id && (
                   <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
                     Atual
                   </span>
@@ -62,11 +95,12 @@ export default function ConcursosSettings() {
               <button
                 onClick={e => {
                   e.stopPropagation()
-                  removeConcurso(c)
+                  handleRemove(c.id)
                 }}
-                className="text-muted-foreground transition-colors hover:text-danger"
+                disabled={removingId === c.id}
+                className="text-muted-foreground transition-colors hover:text-danger disabled:cursor-wait"
               >
-                <Trash2 size={15} />
+                {removingId === c.id ? <Loader2 size={15} className="animate-spin" /> : <Trash2 size={15} />}
               </button>
             </div>
           ))}
