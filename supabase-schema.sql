@@ -38,7 +38,7 @@ CREATE POLICY "allow_all_disciplinas" ON disciplinas
 -- =========================================================
 CREATE TABLE assuntos_pastas (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  disciplina_id uuid NOT NULL REFERENCES disciplinas (id) ON DELETE CASCADE,
+  disciplina_id uuid REFERENCES disciplinas (id) ON DELETE CASCADE,
   parent_id uuid REFERENCES assuntos_pastas (id) ON DELETE CASCADE,
   nome text NOT NULL
 );
@@ -56,7 +56,8 @@ CREATE TABLE anotacoes (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   pasta_id uuid NOT NULL REFERENCES assuntos_pastas (id) ON DELETE CASCADE,
   titulo text NOT NULL,
-  conteudo text
+  conteudo text,
+  created_at timestamptz NOT NULL DEFAULT now()
 );
 
 ALTER TABLE anotacoes ENABLE ROW LEVEL SECURITY;

@@ -1,11 +1,12 @@
 import { useRef, useState } from 'react'
-import { Bold, Italic, List, ListOrdered, ImagePlus, X } from 'lucide-react'
+import { Bold, Italic, List, ListOrdered, ImagePlus, X, Loader2 } from 'lucide-react'
 
 type Props = {
   open: boolean
   pastaNome: string
   initialTitulo?: string
   initialConteudo?: string
+  saving?: boolean
   onClose: () => void
   onSave: (titulo: string, conteudo: string) => void
 }
@@ -22,6 +23,7 @@ export default function NoteEditorModal({
   pastaNome,
   initialTitulo = '',
   initialConteudo = '',
+  saving = false,
   onClose,
   onSave,
 }: Props) {
@@ -113,14 +115,17 @@ export default function NoteEditorModal({
         <div className="flex justify-end gap-2 border-t border-border px-5 py-3">
           <button
             onClick={onClose}
-            className="rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            disabled={saving}
+            className="rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
           >
             Cancelar
           </button>
           <button
             onClick={handleSave}
-            className="rounded-md bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+            disabled={saving}
+            className="flex items-center gap-1.5 rounded-md bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
           >
+            {saving && <Loader2 size={14} className="animate-spin" />}
             Salvar
           </button>
         </div>
