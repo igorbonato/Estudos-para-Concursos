@@ -1,7 +1,7 @@
-import { CONCURSOS, useConcurso } from '../../context/ConcursoContext'
+import { useConcurso } from '../../context/ConcursoContext'
 
 export default function Header() {
-  const { selectedConcurso, setSelectedConcurso } = useConcurso()
+  const { concursos, selectedConcurso, setSelectedConcurso } = useConcurso()
 
   return (
     <header className="flex h-header items-center justify-between border-b border-border bg-card px-6">
@@ -20,10 +20,10 @@ export default function Header() {
           <select
             id="concurso-select"
             value={selectedConcurso}
-            onChange={e => setSelectedConcurso(e.target.value as (typeof CONCURSOS)[number])}
+            onChange={e => setSelectedConcurso(e.target.value)}
             className="cursor-pointer appearance-none rounded-md border border-primary/25 bg-primary/10 py-1.5 pl-3 pr-8 text-sm font-semibold text-primary outline-none"
           >
-            {CONCURSOS.map(c => (
+            {concursos.map(c => (
               <option key={c} value={c} className="bg-card text-foreground">
                 {c}
               </option>
