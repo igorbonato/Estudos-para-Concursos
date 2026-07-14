@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import { Sparkles, Loader2, CheckCircle2, XCircle, ChevronDown, ChevronUp } from 'lucide-react'
-import type { RedacaoFeedback } from '../../data/redacaoMock'
+import { Link } from 'react-router-dom'
+import { Sparkles, Loader2, CheckCircle2, XCircle, ChevronDown, ChevronUp, AlertTriangle } from 'lucide-react'
+import type { RedacaoFeedback } from '../../types/redacao'
 
 type Props = {
   feedback: RedacaoFeedback | null
   loading: boolean
   loadingMessage: string
+  error?: string | null
   banca: string
 }
 
@@ -22,7 +24,7 @@ function scoreBarColor(score: number, max: number) {
   return 'bg-danger'
 }
 
-export default function FeedbackPanel({ feedback, loading, loadingMessage, banca }: Props) {
+export default function FeedbackPanel({ feedback, loading, loadingMessage, error, banca }: Props) {
   const [showExemplar, setShowExemplar] = useState(false)
 
   if (loading) {
@@ -30,6 +32,27 @@ export default function FeedbackPanel({ feedback, loading, loadingMessage, banca
       <div className="flex h-full flex-col items-center justify-center gap-4 px-8 text-center">
         <Loader2 size={32} className="animate-spin text-primary" />
         <p className="text-sm text-muted-foreground">{loadingMessage}</p>
+      </div>
+    )
+  }
+
+  if (error) {
+    const isKeyMissing = error.toLowerCase().includes('configure sua chave')
+    return (
+      <div className="flex h-full flex-col items-center justify-center gap-4 px-8 text-center">
+        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-danger/10 text-danger">
+          <AlertTriangle size={22} />
+        </div>
+        <p className="text-sm font-medium text-foreground">Não foi possível analisar</p>
+        <p className="text-xs leading-relaxed text-muted-foreground">{error}</p>
+        {isKeyMissing && (
+          <Link
+            to="/configuracoes"
+            className="rounded-md border border-primary/30 px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:bg-primary/10"
+          >
+            Ir para Configurações
+          </Link>
+        )}
       </div>
     )
   }

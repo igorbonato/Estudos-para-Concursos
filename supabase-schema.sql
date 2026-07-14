@@ -122,6 +122,9 @@ CREATE POLICY "allow_all_flashcards" ON flashcards
 CREATE TABLE redacoes (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   concurso_id uuid NOT NULL REFERENCES concursos (id) ON DELETE CASCADE,
+  tema text,
+  banca text,
+  cargo text,
   texto_original text NOT NULL,
   nota_ia real,
   feedback_estruturado_ia jsonb

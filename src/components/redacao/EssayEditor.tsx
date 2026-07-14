@@ -1,5 +1,5 @@
 import { Sparkles, Loader2 } from 'lucide-react'
-import { BANCAS } from '../../data/redacaoMock'
+import { BANCAS } from '../../types/redacao'
 
 type Props = {
   banca: string
