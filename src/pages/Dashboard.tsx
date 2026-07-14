@@ -4,7 +4,7 @@ import { buildPastaTree } from '../lib/buildPastaTree'
 import type { PastaNode } from '../types/cadernos'
 import type { DisciplinaProgressItem, RecentSessionItem } from '../types/dashboard'
 import StatCard from '../components/ui/StatCard'
-import CronogramaSemanal from '../components/dashboard/CronogramaSemanal'
+import CalendarioEstudos from '../components/dashboard/CalendarioEstudos'
 import RecentSessions from '../components/dashboard/RecentSessions'
 import DisciplineProgress from '../components/dashboard/DisciplineProgress'
 
@@ -200,12 +200,12 @@ export default function Dashboard() {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <CronogramaSemanal onSessionLogged={refetchSessoes} />
-        <RecentSessions sessions={recentSessions} loading={loadingSessions} />
-      </div>
+      <CalendarioEstudos onSessionLogged={refetchSessoes} />
 
-      <DisciplineProgress items={disciplinaProgress} loading={loadingDisciplinas} />
+      <div className="grid grid-cols-2 gap-4">
+        <RecentSessions sessions={recentSessions} loading={loadingSessions} />
+        <DisciplineProgress items={disciplinaProgress} loading={loadingDisciplinas} />
+      </div>
     </div>
   )
 }

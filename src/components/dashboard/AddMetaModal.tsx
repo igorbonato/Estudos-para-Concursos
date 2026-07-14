@@ -10,12 +10,13 @@ function todayIso(): string {
 type Props = {
   onClose: () => void
   onCreate: (input: { titulo: string; duracao_minutos: number; data_prevista: string }) => Promise<boolean>
+  initialData?: string
 }
 
-export default function AddMetaModal({ onClose, onCreate }: Props) {
+export default function AddMetaModal({ onClose, onCreate, initialData }: Props) {
   const [titulo, setTitulo] = useState(DISCIPLINAS[0])
   const [minutos, setMinutos] = useState(30)
-  const [data, setData] = useState(todayIso())
+  const [data, setData] = useState(initialData ?? todayIso())
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
