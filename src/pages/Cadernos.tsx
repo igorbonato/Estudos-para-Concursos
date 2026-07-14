@@ -82,10 +82,10 @@ export default function Cadernos() {
     }
   }, [selectedPastaId])
 
-  const handleCreatePasta = async (nome: string) => {
+  const handleCreatePasta = async (nome: string, parentId: string | null) => {
     const { data, error } = await supabase
       .from('assuntos_pastas')
-      .insert({ nome: nome.trim(), parent_id: null, disciplina_id: null })
+      .insert({ nome: nome.trim(), parent_id: parentId, disciplina_id: null })
       .select()
       .single()
 
@@ -96,6 +96,28 @@ export default function Cadernos() {
 
     setPastas(prev => [...prev, data as PastaRow])
     setSelectedPastaId((data as PastaRow).id)
+  }
+
+  const handleDeletePasta = async (id: string) => {
+    const { error: deleteError } = await supabase.from('assuntos_pastas').delete().eq('id', id)
+    if (deleteError) {
+      setPastasError(deleteError.message)
+      return
+    }
+
+    const { data, error: fetchError } = await supabase.from('assuntos_pastas').select('*')
+    if (fetchError) {
+      setPastasError(fetchError.message)
+      return
+    }
+
+    const list = (data ?? []) as PastaRow[]
+    setPastas(list)
+    setPastasError(null)
+
+    if (selectedPastaId && !list.some(p => p.id === selectedPastaId)) {
+      setSelectedPastaId(list.find(p => !p.parent_id)?.id ?? null)
+    }
   }
 
   const openNota = (nota: Nota) => setModal(m => ({ open: true, nota, key: m.key + 1 }))
@@ -146,6 +168,7 @@ export default function Cadernos() {
           selectedPastaId={selectedPastaId}
           onSelectPasta={setSelectedPastaId}
           onCreatePasta={handleCreatePasta}
+          onDeletePasta={handleDeletePasta}
         />
       </aside>
 

@@ -88,6 +88,17 @@ export default function Treinar() {
     return true
   }
 
+  const handleDeleteCard = async (cardId: string) => {
+    const { error } = await supabase.from('flashcards').delete().eq('id', cardId)
+    if (error) {
+      setSetsError(error.message)
+      return
+    }
+
+    setSets(prev => prev.map(s => ({ ...s, cards: s.cards.filter(c => c.id !== cardId) })))
+    setSetSelecionado(prev => (prev ? { ...prev, cards: prev.cards.filter(c => c.id !== cardId) } : prev))
+  }
+
   return (
     <div className="flex h-full flex-col p-6">
       <div className="mb-6 flex items-center gap-1 rounded-md border border-border p-1" style={{ width: 'fit-content' }}>
@@ -122,7 +133,7 @@ export default function Treinar() {
 
       {aba === 'praticar' &&
         (setSelecionado ? (
-          <StudySession set={setSelecionado} onExit={() => setSetSelecionado(null)} />
+          <StudySession set={setSelecionado} onExit={() => setSetSelecionado(null)} onDeleteCard={handleDeleteCard} />
         ) : (
           <StudySetList sets={sets} loading={loadingSets} onSelect={setSetSelecionado} />
         ))}

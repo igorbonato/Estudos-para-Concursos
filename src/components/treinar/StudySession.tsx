@@ -3,15 +3,17 @@ import { ArrowLeft } from 'lucide-react'
 import type { StudySet } from '../../types/treinar'
 import FlashcardMode from './FlashcardMode'
 import MultipleChoiceMode from './MultipleChoiceMode'
+import FlashcardList from './FlashcardList'
 
-type Mode = 'cartoes' | 'multipla'
+type Mode = 'cartoes' | 'multipla' | 'gerenciar'
 
 type Props = {
   set: StudySet
   onExit: () => void
+  onDeleteCard: (cardId: string) => Promise<void>
 }
 
-export default function StudySession({ set, onExit }: Props) {
+export default function StudySession({ set, onExit, onDeleteCard }: Props) {
   const [mode, setMode] = useState<Mode>('cartoes')
   const [index, setIndex] = useState(0)
   const [scoreOk, setScoreOk] = useState(0)
@@ -66,15 +68,25 @@ export default function StudySession({ set, onExit }: Props) {
           >
             Múltipla Escolha
           </button>
+          <button
+            onClick={() => switchMode('gerenciar')}
+            className={`rounded px-3 py-1 text-xs font-medium transition-colors ${
+              mode === 'gerenciar' ? 'bg-primary/10 text-primary' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Gerenciar
+          </button>
         </div>
       </div>
 
-      <div className="pt-4 text-center">
-        <span className="font-mono text-sm text-foreground">
-          {Math.min(index + 1, total)} de {total}
-        </span>
-        <span className="ml-2 text-sm text-muted-foreground">{set.nome}</span>
-      </div>
+      {mode !== 'gerenciar' && (
+        <div className="pt-4 text-center">
+          <span className="font-mono text-sm text-foreground">
+            {Math.min(index + 1, total)} de {total}
+          </span>
+          <span className="ml-2 text-sm text-muted-foreground">{set.nome}</span>
+        </div>
+      )}
 
       {mode === 'cartoes' && !finished && (
         <div className="flex items-center justify-between px-2 pt-2 text-xs">
@@ -87,7 +99,9 @@ export default function StudySession({ set, onExit }: Props) {
         </div>
       )}
 
-      {finished ? (
+      {mode === 'gerenciar' ? (
+        <FlashcardList cards={set.cards} onDelete={onDeleteCard} />
+      ) : finished ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
           <h2 className="text-lg font-semibold text-foreground">Sessão concluída!</h2>
           <p className="text-sm text-muted-foreground">
