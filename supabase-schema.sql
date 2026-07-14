@@ -71,7 +71,8 @@ CREATE POLICY "allow_all_anotacoes" ON anotacoes
 -- =========================================================
 CREATE TABLE sessoes_estudo (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  disciplina_id uuid NOT NULL REFERENCES disciplinas (id) ON DELETE CASCADE,
+  disciplina_id uuid REFERENCES disciplinas (id) ON DELETE CASCADE,
+  titulo text,
   tempo_gasto_minutos integer NOT NULL,
   data timestamptz NOT NULL DEFAULT now()
 );
@@ -79,6 +80,23 @@ CREATE TABLE sessoes_estudo (
 ALTER TABLE sessoes_estudo ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "allow_all_sessoes_estudo" ON sessoes_estudo
+  FOR ALL TO anon, authenticated
+  USING (true) WITH CHECK (true);
+
+-- =========================================================
+-- cronograma (metas de estudo agendadas, mostradas no Dashboard)
+-- =========================================================
+CREATE TABLE cronograma (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  titulo text NOT NULL,
+  data_prevista date NOT NULL,
+  duracao_minutos integer NOT NULL,
+  status boolean NOT NULL DEFAULT false
+);
+
+ALTER TABLE cronograma ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "allow_all_cronograma" ON cronograma
   FOR ALL TO anon, authenticated
   USING (true) WITH CHECK (true);
 

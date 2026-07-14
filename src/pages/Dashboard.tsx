@@ -1,9 +1,39 @@
+import { useEffect, useState } from 'react'
+import { supabase } from '../lib/supabase'
 import StatCard from '../components/ui/StatCard'
-import AlertPanel from '../components/dashboard/AlertPanel'
+import CronogramaSemanal from '../components/dashboard/CronogramaSemanal'
 import RecentSessions from '../components/dashboard/RecentSessions'
 import DisciplineProgress from '../components/dashboard/DisciplineProgress'
 
+function formatHoras(minutos: number): string {
+  const horas = Math.floor(minutos / 60)
+  const resto = minutos % 60
+  return resto ? `${horas}h ${resto}m` : `${horas}h`
+}
+
 export default function Dashboard() {
+  const [horasEstudadas, setHorasEstudadas] = useState<string | null>(null)
+
+  const refetchHoras = async () => {
+    const inicioDoMes = new Date()
+    inicioDoMes.setDate(1)
+    inicioDoMes.setHours(0, 0, 0, 0)
+
+    const { data, error } = await supabase
+      .from('sessoes_estudo')
+      .select('tempo_gasto_minutos')
+      .gte('data', inicioDoMes.toISOString())
+
+    if (!error) {
+      const totalMinutos = (data ?? []).reduce((sum, r) => sum + r.tempo_gasto_minutos, 0)
+      setHorasEstudadas(formatHoras(totalMinutos))
+    }
+  }
+
+  useEffect(() => {
+    refetchHoras()
+  }, [])
+
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-6">
       <div>
@@ -16,10 +46,9 @@ export default function Dashboard() {
       <div className="grid grid-cols-4 gap-4">
         <StatCard
           accentColor="#61dafb"
-          value="128h"
+          value={horasEstudadas ?? '—'}
           label="Horas Estudadas"
           sub="Este mês"
-          trend={{ value: '12%', up: true }}
           icon={
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <circle cx="9" cy="9" r="7" stroke="currentColor" strokeWidth="1.5" />
@@ -78,7 +107,7 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <AlertPanel />
+        <CronogramaSemanal onSessionLogged={refetchHoras} />
         <RecentSessions />
       </div>
 
