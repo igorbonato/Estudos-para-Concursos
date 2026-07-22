@@ -7,6 +7,8 @@ import StatCard from '../components/ui/StatCard'
 import CalendarioEstudos from '../components/dashboard/CalendarioEstudos'
 import RecentSessions from '../components/dashboard/RecentSessions'
 import DisciplineProgress from '../components/dashboard/DisciplineProgress'
+import EditalCard from '../components/dashboard/EditalCard'
+import EditalModal from '../components/dashboard/EditalModal'
 
 const DISCIPLINE_COLORS = ['#61dafb', '#3b82f6', '#a78bfa', '#f59e0b', '#22c55e']
 
@@ -37,6 +39,8 @@ export default function Dashboard() {
 
   const [disciplinaProgress, setDisciplinaProgress] = useState<DisciplinaProgressItem[]>([])
   const [loadingDisciplinas, setLoadingDisciplinas] = useState(true)
+
+  const [editalOpen, setEditalOpen] = useState(false)
 
   const refetchSessoes = async () => {
     setLoadingSessions(true)
@@ -200,12 +204,16 @@ export default function Dashboard() {
         />
       </div>
 
+      <EditalCard onOpen={() => setEditalOpen(true)} />
+
       <CalendarioEstudos onSessionLogged={refetchSessoes} />
 
       <div className="grid grid-cols-2 gap-4">
         <RecentSessions sessions={recentSessions} loading={loadingSessions} />
         <DisciplineProgress items={disciplinaProgress} loading={loadingDisciplinas} />
       </div>
+
+      {editalOpen && <EditalModal onClose={() => setEditalOpen(false)} />}
     </div>
   )
 }
