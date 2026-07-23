@@ -142,7 +142,7 @@ function TreeNode({
   onDragStartPasta: (pasta: PastaNode) => void
   onDragEndPasta: () => void
 }) {
-  const [expanded, setExpanded] = useState(depth < 1)
+  const [expanded, setExpanded] = useState(false)
   const [addingChild, setAddingChild] = useState(false)
   const [childNome, setChildNome] = useState('')
   const [creatingChild, setCreatingChild] = useState(false)
