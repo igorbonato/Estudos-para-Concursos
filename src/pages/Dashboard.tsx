@@ -102,7 +102,7 @@ export default function Dashboard() {
   const refetchDisciplinas = async () => {
     setLoadingDisciplinas(true)
     const [{ data: pastasData, error: pastasError }, { data: notasData, error: notasError }] = await Promise.all([
-      supabase.from('assuntos_pastas').select('id, disciplina_id, parent_id, nome'),
+      supabase.from('assuntos_pastas').select('id, disciplina_id, parent_id, nome, ordem'),
       supabase.from('anotacoes').select('id, pasta_id'),
     ])
 

@@ -40,7 +40,8 @@ CREATE TABLE assuntos_pastas (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   disciplina_id uuid REFERENCES disciplinas (id) ON DELETE CASCADE,
   parent_id uuid REFERENCES assuntos_pastas (id) ON DELETE CASCADE,
-  nome text NOT NULL
+  nome text NOT NULL,
+  ordem integer NOT NULL DEFAULT 0
 );
 
 ALTER TABLE assuntos_pastas ENABLE ROW LEVEL SECURITY;

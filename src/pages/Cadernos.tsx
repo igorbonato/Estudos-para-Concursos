@@ -83,9 +83,12 @@ export default function Cadernos() {
   }, [selectedPastaId])
 
   const handleCreatePasta = async (nome: string, parentId: string | null) => {
+    const irmaos = pastas.filter(p => p.parent_id === parentId)
+    const ordem = irmaos.length ? Math.max(...irmaos.map(p => p.ordem)) + 1 : 0
+
     const { data, error } = await supabase
       .from('assuntos_pastas')
-      .insert({ nome: nome.trim(), parent_id: parentId, disciplina_id: null })
+      .insert({ nome: nome.trim(), parent_id: parentId, disciplina_id: null, ordem })
       .select()
       .single()
 
@@ -96,6 +99,48 @@ export default function Cadernos() {
 
     setPastas(prev => [...prev, data as PastaRow])
     setSelectedPastaId((data as PastaRow).id)
+  }
+
+  const handleRenamePasta = async (id: string, novoNome: string) => {
+    const nome = novoNome.trim()
+    if (!nome) return
+
+    const { data, error } = await supabase.from('assuntos_pastas').update({ nome }).eq('id', id).select().single()
+
+    if (error) {
+      setPastasError(error.message)
+      return
+    }
+
+    setPastas(prev => prev.map(p => (p.id === id ? (data as PastaRow) : p)))
+  }
+
+  const handleReorderPasta = async (draggedId: string, targetId: string, position: 'before' | 'after') => {
+    if (draggedId === targetId) return
+
+    const dragged = pastas.find(p => p.id === draggedId)
+    const target = pastas.find(p => p.id === targetId)
+    if (!dragged || !target || dragged.parent_id !== target.parent_id) return
+
+    const irmaos = pastas.filter(p => p.parent_id === dragged.parent_id).sort((a, b) => a.ordem - b.ordem)
+    const semArrastada = irmaos.filter(p => p.id !== draggedId)
+    const targetIndex = semArrastada.findIndex(p => p.id === targetId)
+    const insertAt = position === 'before' ? targetIndex : targetIndex + 1
+    semArrastada.splice(insertAt, 0, dragged)
+
+    const atualizados = semArrastada
+      .map((p, index) => ({ ...p, ordem: index }))
+      .filter(p => p.ordem !== irmaos.find(o => o.id === p.id)?.ordem)
+
+    if (atualizados.length === 0) return
+
+    setPastas(prev => prev.map(p => atualizados.find(a => a.id === p.id) ?? p))
+
+    const results = await Promise.all(
+      atualizados.map(p => supabase.from('assuntos_pastas').update({ ordem: p.ordem }).eq('id', p.id)),
+    )
+    const failed = results.find(r => r.error)
+    if (failed?.error) setPastasError(failed.error.message)
   }
 
   const handleDeletePasta = async (id: string) => {
@@ -169,6 +214,8 @@ export default function Cadernos() {
           onSelectPasta={setSelectedPastaId}
           onCreatePasta={handleCreatePasta}
           onDeletePasta={handleDeletePasta}
+          onRenamePasta={handleRenamePasta}
+          onReorderPasta={handleReorderPasta}
         />
       </aside>
 

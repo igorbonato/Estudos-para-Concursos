@@ -3,6 +3,7 @@ export type PastaRow = {
   disciplina_id: string | null
   parent_id: string | null
   nome: string
+  ordem: number
 }
 
 export type PastaNode = PastaRow & { children: PastaNode[] }

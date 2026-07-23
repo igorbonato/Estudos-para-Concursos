@@ -12,6 +12,11 @@ export function buildPastaTree(rows: PastaRow[]): PastaNode[] {
     }
   }
 
+  roots.sort((a, b) => a.ordem - b.ordem)
+  for (const node of byId.values()) {
+    node.children.sort((a, b) => a.ordem - b.ordem)
+  }
+
   return roots
 }
 
