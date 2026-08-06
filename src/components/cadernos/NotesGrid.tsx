@@ -27,7 +27,7 @@ export default function NotesGrid({ notas, loading, onOpenNota }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-[repeat(auto-fill,minmax(260px,1fr))]">
       {notas.map(nota => (
         <NoteCard key={nota.id} nota={nota} onClick={() => onOpenNota(nota)} />
       ))}

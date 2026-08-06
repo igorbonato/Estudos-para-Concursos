@@ -206,7 +206,7 @@ export default function Cadernos() {
 
   return (
     <div className="flex h-full">
-      <aside className="w-72 flex-shrink-0 overflow-y-auto border-r border-border bg-card">
+      <aside className="w-64 flex-shrink-0 overflow-y-auto border-r border-border bg-card lg:w-72 xl:w-80">
         <NotesTree
           pastas={tree}
           loading={loadingPastas}
@@ -219,7 +219,7 @@ export default function Cadernos() {
         />
       </aside>
 
-      <div className="flex flex-1 flex-col overflow-y-auto p-6">
+      <div className="flex flex-1 flex-col overflow-y-auto p-6 xl:p-8">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-lg font-semibold text-foreground">{selectedPasta?.nome ?? 'Cadernos'}</h1>
           <button
