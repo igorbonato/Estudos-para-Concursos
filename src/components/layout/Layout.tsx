@@ -1,28 +1,32 @@
+import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import Header from './Header'
 
+const SIDEBAR_COLLAPSED_KEY = 'sidebar-collapsed'
+
 export default function Layout() {
+  const [collapsed, setCollapsed] = useState(() => localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === '1')
+
+  useEffect(() => {
+    localStorage.setItem(SIDEBAR_COLLAPSED_KEY, collapsed ? '1' : '0')
+  }, [collapsed])
+
   return (
-    <div
-      className="h-screen overflow-hidden bg-background"
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '240px 1fr',
-        gridTemplateRows: '56px 1fr',
-      }}
-    >
-      <div style={{ gridRow: '1 / 3', gridColumn: '1 / 2' }}>
-        <Sidebar />
+    <div className="flex h-screen overflow-hidden bg-background">
+      <div
+        className="flex-shrink-0 overflow-hidden transition-[width] duration-200 ease-in-out"
+        style={{ width: collapsed ? 64 : 240 }}
+      >
+        <Sidebar collapsed={collapsed} onToggleCollapsed={() => setCollapsed(c => !c)} />
       </div>
 
-      <div style={{ gridRow: '1 / 2', gridColumn: '2 / 3' }}>
+      <div className="flex flex-1 flex-col overflow-hidden">
         <Header />
+        <main className="flex-1 overflow-y-auto bg-background">
+          <Outlet />
+        </main>
       </div>
-
-      <main className="overflow-y-auto bg-background" style={{ gridRow: '2 / 3', gridColumn: '2 / 3' }}>
-        <Outlet />
-      </main>
     </div>
   )
 }
