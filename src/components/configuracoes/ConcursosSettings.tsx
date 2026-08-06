@@ -3,11 +3,20 @@ import { Trash2, Plus, Loader2 } from 'lucide-react'
 import { useConcurso } from '../../context/ConcursoContext'
 
 export default function ConcursosSettings() {
-  const { concursos, loading, error, selectedConcurso, setSelectedConcurso, addConcurso, removeConcurso } =
-    useConcurso()
+  const {
+    concursos,
+    loading,
+    error,
+    selectedConcurso,
+    setSelectedConcurso,
+    addConcurso,
+    removeConcurso,
+    updateDataProva,
+  } = useConcurso()
   const [novoConcurso, setNovoConcurso] = useState('')
   const [adding, setAdding] = useState(false)
   const [removingId, setRemovingId] = useState<string | null>(null)
+  const [savingDataId, setSavingDataId] = useState<string | null>(null)
 
   const handleAdd = async () => {
     if (!novoConcurso.trim() || adding) return
@@ -22,6 +31,12 @@ export default function ConcursosSettings() {
     setRemovingId(id)
     await removeConcurso(id)
     setRemovingId(null)
+  }
+
+  const handleDataProvaChange = async (id: string, value: string) => {
+    setSavingDataId(id)
+    await updateDataProva(id, value || null)
+    setSavingDataId(null)
   }
 
   return (
@@ -78,30 +93,44 @@ export default function ConcursosSettings() {
             <div
               key={c.id}
               onClick={() => setSelectedConcurso(c)}
-              className={`flex cursor-pointer items-center justify-between rounded-lg border p-3 transition-colors ${
+              className={`flex cursor-pointer items-center justify-between gap-3 rounded-lg border p-3 transition-colors ${
                 c.id === selectedConcurso?.id
                   ? 'border-primary/30 bg-primary/[0.06]'
                   : 'border-border bg-card hover:border-primary/20'
               }`}
             >
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-foreground">{c.nome}</span>
+              <div className="flex min-w-0 items-center gap-2">
+                <span className="truncate text-sm text-foreground">{c.nome}</span>
                 {c.id === selectedConcurso?.id && (
-                  <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
+                  <span className="flex-shrink-0 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
                     Atual
                   </span>
                 )}
               </div>
-              <button
-                onClick={e => {
-                  e.stopPropagation()
-                  handleRemove(c.id)
-                }}
-                disabled={removingId === c.id}
-                className="text-muted-foreground transition-colors hover:text-danger disabled:cursor-wait"
-              >
-                {removingId === c.id ? <Loader2 size={15} className="animate-spin" /> : <Trash2 size={15} />}
-              </button>
+
+              <div className="flex flex-shrink-0 items-center gap-3">
+                <label className="flex items-center gap-1.5 text-xs text-muted-foreground" onClick={e => e.stopPropagation()}>
+                  Prova em
+                  <input
+                    type="date"
+                    value={c.data_prova ?? ''}
+                    onChange={e => handleDataProvaChange(c.id, e.target.value)}
+                    disabled={savingDataId === c.id}
+                    className="rounded-md border border-border bg-background px-2 py-1 text-xs text-foreground outline-none focus:border-primary/40 disabled:opacity-60"
+                  />
+                  {savingDataId === c.id && <Loader2 size={13} className="animate-spin" />}
+                </label>
+                <button
+                  onClick={e => {
+                    e.stopPropagation()
+                    handleRemove(c.id)
+                  }}
+                  disabled={removingId === c.id}
+                  className="text-muted-foreground transition-colors hover:text-danger disabled:cursor-wait"
+                >
+                  {removingId === c.id ? <Loader2 size={15} className="animate-spin" /> : <Trash2 size={15} />}
+                </button>
+              </div>
             </div>
           ))}
         </div>

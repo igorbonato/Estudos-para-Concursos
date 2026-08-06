@@ -17,6 +17,7 @@ type ConcursoContextValue = {
   setSelectedConcurso: (c: Concurso) => void
   addConcurso: (nome: string) => Promise<void>
   removeConcurso: (id: string) => Promise<void>
+  updateDataProva: (id: string, dataProva: string | null) => Promise<void>
   resetConcursos: () => Promise<void>
 }
 
@@ -80,6 +81,24 @@ export function ConcursoProvider({ children }: { children: ReactNode }) {
     setError(null)
   }
 
+  const updateDataProva = async (id: string, dataProva: string | null) => {
+    const { data, error } = await supabase
+      .from('concursos')
+      .update({ data_prova: dataProva })
+      .eq('id', id)
+      .select()
+      .single()
+
+    if (error) {
+      setError(error.message)
+      return
+    }
+
+    setConcursos(prev => prev.map(c => (c.id === id ? (data as Concurso) : c)))
+    setSelectedConcurso(sel => (sel?.id === id ? (data as Concurso) : sel))
+    setError(null)
+  }
+
   const resetConcursos = async () => {
     setLoading(true)
     const { error: deleteError } = await supabase.from('concursos').delete().not('id', 'is', null)
@@ -117,6 +136,7 @@ export function ConcursoProvider({ children }: { children: ReactNode }) {
         setSelectedConcurso,
         addConcurso,
         removeConcurso,
+        updateDataProva,
         resetConcursos,
       }}
     >

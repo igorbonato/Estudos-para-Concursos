@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import { useConcurso } from '../context/ConcursoContext'
 import { buildPastaTree } from '../lib/buildPastaTree'
 import type { PastaNode } from '../types/cadernos'
 import type { DisciplinaProgressItem, RecentSessionItem } from '../types/dashboard'
@@ -26,7 +27,33 @@ function toLocalDateKey(iso: string): string {
   return new Date(iso).toLocaleDateString('en-CA')
 }
 
+function formatDataExtenso(data: Date): string {
+  const formatado = data.toLocaleDateString('pt-BR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+  return formatado.charAt(0).toUpperCase() + formatado.slice(1)
+}
+
+function diasAteProva(dataProva: string): number {
+  const hoje = new Date()
+  hoje.setHours(0, 0, 0, 0)
+  const alvo = new Date(`${dataProva}T00:00:00`)
+  return Math.round((alvo.getTime() - hoje.getTime()) / (1000 * 60 * 60 * 24))
+}
+
+function formatContagemProva(nome: string, dias: number): string {
+  if (dias > 1) return `${nome} em ${dias} dias`
+  if (dias === 1) return `${nome} amanhã`
+  if (dias === 0) return `${nome} é hoje!`
+  const diasPassados = Math.abs(dias)
+  return `${nome} foi há ${diasPassados} dia${diasPassados === 1 ? '' : 's'}`
+}
+
 export default function Dashboard() {
+  const { selectedConcurso } = useConcurso()
   const [horasEstudadas, setHorasEstudadas] = useState<string | null>(null)
   const [diasConsecutivos, setDiasConsecutivos] = useState<number | null>(null)
   const [recentSessions, setRecentSessions] = useState<RecentSessionItem[]>([])
@@ -140,7 +167,9 @@ export default function Dashboard() {
       <div>
         <h1 className="text-xl font-semibold text-foreground">Bom dia, candidato 👋</h1>
         <p className="mt-0.5 text-sm text-muted-foreground">
-          Terça-feira, 13 de julho de 2026 · TRT4 em 42 dias
+          {formatDataExtenso(new Date())}
+          {selectedConcurso?.data_prova &&
+            ` · ${formatContagemProva(selectedConcurso.nome, diasAteProva(selectedConcurso.data_prova))}`}
         </p>
       </div>
 
