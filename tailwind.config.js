@@ -1,3 +1,5 @@
+import typography from '@tailwindcss/typography'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
@@ -45,7 +47,35 @@ export default {
         sidebar: '240px',
         header: '56px',
       },
+      typography: {
+        invert: {
+          css: {
+            '--tw-prose-body': '#e2e8f0',
+            '--tw-prose-headings': '#e2e8f0',
+            '--tw-prose-bold': '#e2e8f0',
+            '--tw-prose-links': '#61dafb',
+            '--tw-prose-quotes': '#94a3b8',
+            '--tw-prose-quote-borders': '#61dafb',
+            '--tw-prose-bullets': '#61dafb',
+            '--tw-prose-hr': '#2d3340',
+            '--tw-prose-th-borders': '#2d3340',
+            '--tw-prose-td-borders': '#2d3340',
+            '--tw-prose-code': '#e2e8f0',
+            code: {
+              backgroundColor: '#22262f',
+              borderRadius: '0.25rem',
+              padding: '0.15rem 0.35rem',
+              fontWeight: '400',
+            },
+            'code::before': { content: '""' },
+            'code::after': { content: '""' },
+            thead: {
+              backgroundColor: '#1e2128',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [typography],
 }

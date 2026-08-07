@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, BookOpen } from 'lucide-react'
 
 type NavItemProps = {
   to: string
@@ -114,6 +114,12 @@ export default function Sidebar({ collapsed, onToggleCollapsed }: SidebarProps) 
               />
             </svg>
           }
+        />
+        <NavItem
+          to="/guias"
+          label="Guias"
+          collapsed={collapsed}
+          icon={<BookOpen size={16} className="flex-shrink-0" />}
         />
       </nav>
 
