@@ -1,5 +1,80 @@
 import { NavLink } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, BookOpen } from 'lucide-react'
+import { ChevronLeft, ChevronRight, BookOpen, X } from 'lucide-react'
+
+const NAV_ITEMS: { to: string; end?: boolean; label: string; icon: React.ReactNode }[] = [
+  {
+    to: '/',
+    end: true,
+    label: 'Dashboard',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
+        <rect x="1" y="1" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.8" />
+        <rect x="9" y="1" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.4" />
+        <rect x="1" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.4" />
+        <rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.8" />
+      </svg>
+    ),
+  },
+  {
+    to: '/cadernos',
+    label: 'Cadernos',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
+        <path
+          d="M3 2h10a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z"
+          stroke="currentColor"
+          strokeWidth="1.4"
+        />
+        <path d="M5 5h6M5 8h6M5 11h4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    to: '/treinar',
+    label: 'Treinar',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
+        <rect x="2" y="3" width="10" height="7" rx="1.3" stroke="currentColor" strokeWidth="1.4" />
+        <rect x="4" y="6" width="10" height="7" rx="1.3" fill="currentColor" opacity="0.15" stroke="currentColor" strokeWidth="1.4" />
+      </svg>
+    ),
+  },
+  {
+    to: '/redacao',
+    label: 'Redação',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
+        <path
+          d="M11.5 1.5l3 3L5 14H2v-3z"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    to: '/guias',
+    label: 'Guias',
+    icon: <BookOpen size={16} className="flex-shrink-0" />,
+  },
+]
+
+const SETTINGS_ITEM = {
+  to: '/configuracoes',
+  label: 'Configurações',
+  icon: (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
+      <circle cx="8" cy="8" r="2.3" stroke="currentColor" strokeWidth="1.3" />
+      <path
+        d="M8 1.5v1.4M8 13.1v1.4M14.5 8h-1.4M2.9 8H1.5M12.5 3.5l-1 1M4.5 11.5l-1 1M12.5 12.5l-1-1M4.5 4.5l-1-1"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+    </svg>
+  ),
+}
 
 type NavItemProps = {
   to: string
@@ -7,14 +82,16 @@ type NavItemProps = {
   label: string
   end?: boolean
   collapsed: boolean
+  onNavigate?: () => void
 }
 
-function NavItem({ to, icon, label, end, collapsed }: NavItemProps) {
+function NavItem({ to, icon, label, end, collapsed, onNavigate }: NavItemProps) {
   return (
     <NavLink
       to={to}
       end={end}
       title={collapsed ? label : undefined}
+      onClick={onNavigate}
       className={({ isActive }) =>
         `flex items-center gap-3 rounded px-3 py-2 text-sm font-medium transition-colors duration-150 ${
           collapsed ? 'justify-center px-2' : ''
@@ -28,11 +105,13 @@ function NavItem({ to, icon, label, end, collapsed }: NavItemProps) {
 }
 
 type SidebarProps = {
+  variant?: 'desktop' | 'mobile'
   collapsed: boolean
-  onToggleCollapsed: () => void
+  onToggleCollapsed?: () => void
+  onNavigate?: () => void
 }
 
-export default function Sidebar({ collapsed, onToggleCollapsed }: SidebarProps) {
+export default function Sidebar({ variant = 'desktop', collapsed, onToggleCollapsed, onNavigate }: SidebarProps) {
   return (
     <aside className="relative flex h-full flex-col overflow-hidden border-r border-border bg-card">
       <div
@@ -52,6 +131,15 @@ export default function Sidebar({ collapsed, onToggleCollapsed }: SidebarProps) 
           </svg>
         </div>
         {!collapsed && <span className="whitespace-nowrap text-sm font-semibold">ConcursoApp</span>}
+        {variant === 'mobile' && (
+          <button
+            onClick={onNavigate}
+            title="Fechar menu"
+            className="ml-auto flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-white/5"
+          >
+            <X size={16} />
+          </button>
+        )}
       </div>
 
       <nav className="flex flex-col gap-1 px-2 pt-4">
@@ -60,95 +148,24 @@ export default function Sidebar({ collapsed, onToggleCollapsed }: SidebarProps) 
             Geral
           </p>
         )}
-        <NavItem
-          to="/"
-          end
-          label="Dashboard"
-          collapsed={collapsed}
-          icon={
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
-              <rect x="1" y="1" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.8" />
-              <rect x="9" y="1" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.4" />
-              <rect x="1" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.4" />
-              <rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.8" />
-            </svg>
-          }
-        />
-        <NavItem
-          to="/cadernos"
-          label="Cadernos"
-          collapsed={collapsed}
-          icon={
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
-              <path
-                d="M3 2h10a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z"
-                stroke="currentColor"
-                strokeWidth="1.4"
-              />
-              <path d="M5 5h6M5 8h6M5 11h4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-            </svg>
-          }
-        />
-        <NavItem
-          to="/treinar"
-          label="Treinar"
-          collapsed={collapsed}
-          icon={
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
-              <rect x="2" y="3" width="10" height="7" rx="1.3" stroke="currentColor" strokeWidth="1.4" />
-              <rect x="4" y="6" width="10" height="7" rx="1.3" fill="currentColor" opacity="0.15" stroke="currentColor" strokeWidth="1.4" />
-            </svg>
-          }
-        />
-        <NavItem
-          to="/redacao"
-          label="Redação"
-          collapsed={collapsed}
-          icon={
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
-              <path
-                d="M11.5 1.5l3 3L5 14H2v-3z"
-                stroke="currentColor"
-                strokeWidth="1.4"
-                strokeLinejoin="round"
-              />
-            </svg>
-          }
-        />
-        <NavItem
-          to="/guias"
-          label="Guias"
-          collapsed={collapsed}
-          icon={<BookOpen size={16} className="flex-shrink-0" />}
-        />
+        {NAV_ITEMS.map(item => (
+          <NavItem key={item.to} {...item} collapsed={collapsed} onNavigate={onNavigate} />
+        ))}
       </nav>
 
       <nav className="mt-auto flex flex-col gap-1 px-2 pb-4">
-        <NavItem
-          to="/configuracoes"
-          label="Configurações"
-          collapsed={collapsed}
-          icon={
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0">
-              <circle cx="8" cy="8" r="2.3" stroke="currentColor" strokeWidth="1.3" />
-              <path
-                d="M8 1.5v1.4M8 13.1v1.4M14.5 8h-1.4M2.9 8H1.5M12.5 3.5l-1 1M4.5 11.5l-1 1M12.5 12.5l-1-1M4.5 4.5l-1-1"
-                stroke="currentColor"
-                strokeWidth="1.3"
-                strokeLinecap="round"
-              />
-            </svg>
-          }
-        />
+        <NavItem {...SETTINGS_ITEM} collapsed={collapsed} onNavigate={onNavigate} />
       </nav>
 
-      <button
-        onClick={onToggleCollapsed}
-        title={collapsed ? 'Expandir menu' : 'Recolher menu'}
-        className="absolute -right-3 top-[18px] flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition-colors hover:text-primary"
-      >
-        {collapsed ? <ChevronRight size={13} /> : <ChevronLeft size={13} />}
-      </button>
+      {variant === 'desktop' && (
+        <button
+          onClick={onToggleCollapsed}
+          title={collapsed ? 'Expandir menu' : 'Recolher menu'}
+          className="absolute -right-3 top-[18px] flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition-colors hover:text-primary"
+        >
+          {collapsed ? <ChevronRight size={13} /> : <ChevronLeft size={13} />}
+        </button>
+      )}
     </aside>
   )
 }

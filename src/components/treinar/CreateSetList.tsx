@@ -61,8 +61,17 @@ export default function CreateSetList({ onCreate, error }: Props) {
 
       <div className="space-y-3">
         {rows.map((row, i) => (
-          <div key={row.id} className="flex items-start gap-3 rounded-lg border border-border bg-card p-3">
-            <span className="mt-2.5 w-5 flex-shrink-0 text-center text-xs text-muted-foreground">{i + 1}</span>
+          <div key={row.id} className="flex flex-col gap-2 rounded-lg border border-border bg-card p-3 sm:flex-row sm:items-start sm:gap-3">
+            <div className="flex items-center justify-between sm:contents">
+              <span className="w-5 flex-shrink-0 text-center text-xs text-muted-foreground sm:mt-2.5">{i + 1}</span>
+              <button
+                onClick={() => removeRow(row.id)}
+                disabled={rows.length <= 1 || creating}
+                className="flex-shrink-0 text-muted-foreground transition-colors hover:text-danger disabled:opacity-30 sm:hidden"
+              >
+                <Trash2 size={15} />
+              </button>
+            </div>
             <div className="flex-1">
               <input
                 value={row.termo}
@@ -86,7 +95,7 @@ export default function CreateSetList({ onCreate, error }: Props) {
             <button
               onClick={() => removeRow(row.id)}
               disabled={rows.length <= 1 || creating}
-              className="mt-2 flex-shrink-0 text-muted-foreground transition-colors hover:text-danger disabled:opacity-30"
+              className="hidden flex-shrink-0 text-muted-foreground transition-colors hover:text-danger disabled:opacity-30 sm:mt-2 sm:block"
             >
               <Trash2 size={15} />
             </button>

@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Plus } from 'lucide-react'
+import { Plus, ChevronDown } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import type { PastaRow, Nota } from '../types/cadernos'
 import { buildPastaTree, findPastaNode } from '../lib/buildPastaTree'
+import { useScrollCollapse } from '../lib/useScrollCollapse'
 import NotesTree from '../components/cadernos/NotesTree'
 import NotesGrid from '../components/cadernos/NotesGrid'
 import NoteEditorModal from '../components/cadernos/NoteEditorModal'
@@ -24,6 +25,7 @@ export default function Cadernos() {
 
   const tree = useMemo(() => buildPastaTree(pastas), [pastas])
   const selectedPasta = selectedPastaId ? findPastaNode(tree, selectedPastaId) : null
+  const { collapsed, onScroll, expand } = useScrollCollapse()
 
   useEffect(() => {
     let active = true
@@ -205,21 +207,37 @@ export default function Cadernos() {
   }
 
   return (
-    <div className="flex h-full">
-      <aside className="w-64 flex-shrink-0 overflow-y-auto border-r border-border bg-card lg:w-72 xl:w-80">
-        <NotesTree
-          pastas={tree}
-          loading={loadingPastas}
-          selectedPastaId={selectedPastaId}
-          onSelectPasta={setSelectedPastaId}
-          onCreatePasta={handleCreatePasta}
-          onDeletePasta={handleDeletePasta}
-          onRenamePasta={handleRenamePasta}
-          onReorderPasta={handleReorderPasta}
-        />
+    <div className="flex h-full flex-col md:flex-row">
+      <aside className="w-full flex-shrink-0 border-b border-border bg-card md:h-full md:w-64 md:border-b-0 md:border-r lg:w-72 xl:w-80">
+        <button
+          onClick={expand}
+          className={`w-full items-center justify-between gap-2 px-3 py-2.5 text-left text-sm text-secondary-foreground md:hidden ${
+            collapsed ? 'flex' : 'hidden'
+          }`}
+        >
+          <span className="truncate">{selectedPasta?.nome ?? 'Selecione uma pasta'}</span>
+          <ChevronDown size={14} className="flex-shrink-0" />
+        </button>
+
+        <div
+          className={`max-h-64 overflow-y-auto md:block md:h-full md:max-h-none md:overflow-y-auto ${
+            collapsed ? 'hidden' : 'block'
+          }`}
+        >
+          <NotesTree
+            pastas={tree}
+            loading={loadingPastas}
+            selectedPastaId={selectedPastaId}
+            onSelectPasta={setSelectedPastaId}
+            onCreatePasta={handleCreatePasta}
+            onDeletePasta={handleDeletePasta}
+            onRenamePasta={handleRenamePasta}
+            onReorderPasta={handleReorderPasta}
+          />
+        </div>
       </aside>
 
-      <div className="flex flex-1 flex-col overflow-y-auto p-6 xl:p-8">
+      <div className="flex flex-1 flex-col overflow-y-auto p-6 xl:p-8" onScroll={onScroll}>
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-lg font-semibold text-foreground">{selectedPasta?.nome ?? 'Cadernos'}</h1>
           <button

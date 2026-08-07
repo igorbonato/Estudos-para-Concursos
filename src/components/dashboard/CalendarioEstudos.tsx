@@ -186,14 +186,14 @@ export default function CalendarioEstudos({ onSessionLogged }: Props) {
         </div>
       ) : (
         <div>
-          <div className="grid grid-cols-7 gap-1.5">
+          <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
             {WEEKDAYS.map(w => (
               <div key={w} className="pb-1 text-center text-xs font-semibold uppercase text-muted-foreground">
                 {w}
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-7 gap-1.5">
+          <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
             {cells.map(cell => {
               const key = dateKey(cell)
               const isCurrentMonth = cell.getMonth() === month
@@ -206,7 +206,7 @@ export default function CalendarioEstudos({ onSessionLogged }: Props) {
                 <button
                   key={key}
                   onClick={() => setModalData(key)}
-                  className={`flex min-h-[84px] flex-col items-stretch gap-1 rounded-md border p-1.5 text-left transition-colors ${
+                  className={`flex min-h-[56px] flex-col items-stretch gap-1 rounded-md border p-1 text-left transition-colors sm:min-h-[68px] sm:p-1.5 md:min-h-[84px] ${
                     isCurrentMonth ? 'border-border bg-background' : 'border-border/50 bg-background/40'
                   } hover:border-primary/30`}
                 >

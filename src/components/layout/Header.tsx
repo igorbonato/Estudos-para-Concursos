@@ -1,18 +1,30 @@
+import { Menu } from 'lucide-react'
 import { useConcurso } from '../../context/ConcursoContext'
 
-export default function Header() {
+type HeaderProps = {
+  onOpenMobileNav: () => void
+}
+
+export default function Header({ onOpenMobileNav }: HeaderProps) {
   const { concursos, selectedConcurso, setSelectedConcurso, loading } = useConcurso()
 
   return (
-    <header className="flex h-header items-center justify-between border-b border-border bg-card px-6">
+    <header className="flex h-header items-center justify-between border-b border-border bg-card px-3 sm:px-6">
       <div className="flex items-center gap-2">
-        <span className="text-sm text-muted-foreground">Concurso Atual</span>
+        <button
+          onClick={onOpenMobileNav}
+          aria-label="Abrir menu"
+          className="mr-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-white/5 lg:hidden"
+        >
+          <Menu size={18} />
+        </button>
+        <span className="hidden text-sm text-muted-foreground sm:inline">Concurso Atual</span>
       </div>
 
       <div className="flex items-center gap-2">
         <label
           htmlFor="concurso-select"
-          className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+          className="hidden text-xs font-semibold uppercase tracking-wider text-muted-foreground sm:block"
         >
           Concurso
         </label>
@@ -52,13 +64,13 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
-        <button className="flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary/30">
+      <div className="flex items-center gap-2 sm:gap-3">
+        <button className="flex items-center gap-1.5 rounded-md border border-border px-2 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary/30 sm:px-3">
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
             <circle cx="5.5" cy="5.5" r="4" stroke="currentColor" strokeWidth="1.4" />
             <path d="M8.5 8.5L11.5 11.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
           </svg>
-          Buscar
+          <span className="hidden sm:inline">Buscar</span>
         </button>
 
         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xs font-bold text-primary-foreground">

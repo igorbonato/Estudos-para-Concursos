@@ -173,7 +173,7 @@ export default function Dashboard() {
         </p>
       </div>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
         <StatCard
           accentColor="#61dafb"
           value={horasEstudadas ?? '—'}
@@ -237,7 +237,7 @@ export default function Dashboard() {
 
       <CalendarioEstudos onSessionLogged={refetchSessoes} />
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <RecentSessions sessions={recentSessions} loading={loadingSessions} />
         <DisciplineProgress items={disciplinaProgress} loading={loadingDisciplinas} />
       </div>

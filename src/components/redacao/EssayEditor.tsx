@@ -31,7 +31,7 @@ export default function EssayEditor({
 
   return (
     <div className="flex min-w-0 flex-1 flex-col">
-      <div className="grid grid-cols-3 gap-3 border-b border-border p-6 pb-5">
+      <div className="grid grid-cols-1 gap-3 border-b border-border p-6 pb-5 sm:grid-cols-3">
         <div>
           <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Banca

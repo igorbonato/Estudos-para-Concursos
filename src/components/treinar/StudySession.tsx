@@ -42,7 +42,7 @@ export default function StudySession({ set, onExit, onDeleteCard }: Props) {
 
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex items-center justify-between border-b border-border pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-4">
         <button
           onClick={onExit}
           className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"

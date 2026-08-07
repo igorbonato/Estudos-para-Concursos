@@ -57,7 +57,7 @@ export default function Redacao() {
   }
 
   return (
-    <div className="flex h-full">
+    <div className="flex min-h-full flex-col lg:h-full lg:flex-row">
       <EssayEditor
         banca={banca}
         setBanca={setBanca}
@@ -71,7 +71,7 @@ export default function Redacao() {
         onAnalyze={handleAnalyze}
       />
 
-      <aside className="w-[380px] flex-shrink-0 overflow-y-auto border-l border-border bg-card">
+      <aside className="w-full flex-shrink-0 overflow-y-auto border-t border-border bg-card lg:h-full lg:w-[380px] lg:border-l lg:border-t-0">
         <FeedbackPanel
           feedback={feedback}
           loading={loading}
