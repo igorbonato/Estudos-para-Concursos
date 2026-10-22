@@ -1,5 +1,21 @@
 # 📘 Guia de Estudo Direcionado e Prescritivo — Segurança da Informação (TRT 4ª Região)
 
+> ## 📌 Status no Edital TRT4 nº 01/2026 (FCC)
+> Legenda: **[A+T]** cai nos dois cargos · **[A]** só Analista TI (14) · **[T]** só Técnico TI (22). Referência completa: guia **Mapa do Edital 2026**.
+>
+> ✅ **Válido, [A+T]:** CID, criptografia simétrica/assimétrica, hashes, certificados e assinatura digital, OAuth 2.0/MFA/JWT, firewall/UTM/DMZ/proxy, IDS/IPS, malware e ataques, Wi-Fi (WEP→WPA3), VPN, ISO 27001:2024 e 27002:2022, 27701.
+>
+> ✅ **[T]:** ICP-Brasil, SIEM, ISO 27005, CIS Controls v8, continuidade/backup, resposta a incidentes, pentest. **[A]:** TLS 1.2 e 1.3 e as limitações do SSL (o [T] cobra só TLS 1.2).
+>
+> ⚠️ **Desatualizado:** **OWASP Top 10:2021 → 2025**; ISO 27005 → edição **2023**; 27701 → **2026 [A]** / 2019 [T]. Ver o guia **Segurança 2026: atualizações**.
+>
+> ⬇️ **Rebaixar:** OWASP API Top 10, NIST SSDF, EDR/XDR/SOAR, segurança em nuvem (IAM/KMS), ISO 27017/27035/22301.
+>
+> 🆕 **Lacunas:** ZTNA, NAC, criptografia pós-quântica **[T]**, SDL/CLASP e hardening **[T]**, LGPD (só aparece de forma indireta aqui), RFC 9700 (OAuth BCP). Ver **Segurança 2026: atualizações** e **PDPJ-Br e Stack Java**.
+
+---
+
+
 > Gerado cruzando a seção "16. Segurança da Informação" do conteúdo programático oficial (`conteudo_programatico.md`) com **451 questões** de Segurança da Informação da FCC em `questoes_seguranca_informacao_and_arquitetura_software_fcc.json`, pré-digeridas em 5 partes (`guia_estudos_subagentes/raw_md/37_seguranca_parteN_de_5.md`).
 
 **Recorte deste guia:** o arquivo-fonte mistura duas disciplinas do scraper — "Segurança da Informação" (451 questões, corpo deste guia) e "Arquitetura de Software" (202 questões, um bucket muito mais amplo que na prática cobre GoF, SOA/REST, UML, metodologias de processo e fragmentos soltos de Redes/Banco de Dados/linguagens de programação). O conteúdo de Arquitetura de Software foi separado no guia irmão `GUIA_ESTUDO_ARQUITETURA_SOFTWARE.md`. Aqui só entra conteúdo core de Segurança, com tags `[Governança]`/`[Redes]`/`[Sistemas Operacionais]` nos poucos pontos que vazam para outras seções do edital.

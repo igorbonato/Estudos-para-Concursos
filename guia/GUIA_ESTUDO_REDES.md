@@ -1,5 +1,19 @@
 # 📘 Guia de Estudo Direcionado e Prescritivo — Redes de Computadores (TRT 4ª Região)
 
+> ## 📌 Status no Edital TRT4 nº 01/2026 (FCC)
+> Legenda: **[A+T]** cai nos dois cargos · **[A]** só Analista TI (14) · **[T]** só Técnico TI (22). Referência completa: guia **Mapa do Edital 2026**.
+>
+> ✅ **Válido:** OSI **[T]**; TCP/IP, IPv4/IPv6, sub-redes **[A+T]** (CIDR explícito no [T]); comutação de circuitos/pacotes/células **[A]**; cabeamento estruturado e fibra **[A+T]** (NBR 14565:2019 no [A]); equipamentos de interconexão **[A+T]**; VLAN 802.1Q **[A+T]**; STP/RSTP, 802.1X, 802.3 **[A]**; topologias **[T]**; protocolos, portas, DHCP, DNS, e-mail, LDAP **[A]**; SNMP/MIB/QoS **[A]**; firewall, IDS/IPS, VPN e segurança Wi-Fi **[A+T]**.
+>
+> ⚠️ **Desatualizado:** Wi-Fi agora com ênfase em **802.11ac, 802.11ax (Wi-Fi 6/6E) e 802.11be (Wi-Fi 7)**. Ver o guia **DevOps, Infra e Redes 2026**.
+>
+> ❌ **Fora do edital 2026 (rebaixar):** roteamento OSPF/BGP/RIP (fica só o conceito de roteador), VoIP (SIP/H.323/RTP), e todo o bloco de **armazenamento** (RAID, SAN/NAS/DAS, Fibre Channel).
+>
+> 🆕 **Lacunas:** NAT, AAA, codificação de sinal **[T]**; web proxy, Apache/IIS, JBoss EAP **[A]**; monitoramento com Zabbix, Prometheus, Grafana, ELK e Fluentd **[A]**; proxy reverso, SSL offloading e balanceamento **[T]**. Ver o guia **DevOps, Infra e Redes 2026**.
+
+---
+
+
 > Gerado cruzando a seção "14. Redes de Computadores" do conteúdo programático oficial (`conteudo_programatico.md`) com as **1.268 questões** de Redes da FCC em `questoes_redes_pc_fcc.json`, pré-digeridas em 9 partes (`guia_estudos_subagentes/raw_md/28_redes_parteN_de_9.md`).
 >
 > **Esta é a segunda versão deste guia.** A primeira foi gerada quando o scraper ainda não tinha coletado o banco completo (cobria só ~585 questões, em 4 partes). Esta versão refaz o processo do zero sobre as 1.268 questões atuais — mais que o dobro de dados — então vários blocos foram reorganizados, aprofundados ou tiveram pegadinhas novas incorporadas.

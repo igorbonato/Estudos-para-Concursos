@@ -1,5 +1,19 @@
 # 📘 Guia de Estudo Direcionado e Prescritivo — Governança de TI (TRT 4ª Região)
 
+> ## 📌 Status no Edital TRT4 nº 01/2026 (FCC)
+> Legenda: **[A+T]** cai nos dois cargos · **[A]** só Analista TI (14) · **[T]** só Técnico TI (22). Referência completa: guia **Mapa do Edital 2026**.
+>
+> ✅ **Válido:** **COBIT 2019 [A]** (design factors, objetivos, CPM); **BPMN [A+T]**; **ISO/IEC/IEEE 12207:2021 [A+T]**; ITIL 4 como **base** para a ITIL Version 5 **[A]**.
+>
+> ⚠️ **Desatualizado:** ITIL 4 → **ITIL Version 5 [A]**; CMMI-DEV v1.3/v2.0 → **CMMI v3.0 [A+T]**; MPS.BR → **MR-MPS-SW 2024 [A+T]**; PETI/PDTI genérico → **PDTIC 2024-2026 e Modelo de Governança de TIC do TRT4 [A+T]**. Ver o guia **Gestão, Governança e Processos 2026**.
+>
+> 🆕 **Lacuna:** **PMBOK 8ª edição [A]**, que não tinha bloco aqui.
+>
+> ❌ **Fora do edital 2026 (rebaixar):** ITIL v3 (só para entender legados), COBIT 5 e 4.1, TOGAF, BSC, FinOps/TCO, BPM CBOK, COSO/SOX, IN SISP nº 4, ISO/IEC 20000.
+
+---
+
+
 > Gerado cruzando a seção "17. Governança de TI" do conteúdo programático oficial (`conteudo_programatico.md`) com **214 questões** de Governança de TI da FCC em `questoes_gov_ti_fcc.json`, pré-digeridas em 2 partes (`guia_estudos_subagentes/raw_md/38_governanca_ti_parte1_de_2.md` e `38_governanca_ti_parte2_de_2.md`).
 
 **Recorte deste guia:** o edital lista a seção 17 como apenas "ITIL, COBIT, Métodos Ágeis" — mas o banco real de questões da FCC cobre um escopo muito mais amplo do que esse resumo sugere: ITIL v2/v3/v4 completo, COBIT 4.1/5.0/2019, MPS.BR, CMMI-DEV (v1.3 e v2.0), TOGAF, Balanced Scorecard/PETI, Auditoria de TI (COSO/SOX), Instrução Normativa SISP nº 4 (contratação de soluções de TI), ISO/IEC 20000 e ISO/IEC/IEEE 12207:2021, BPM CBOK e notação BPMN 2.0, além de normativos de governança de TI do Judiciário (Resoluções CNJ) e pinceladas de governança de IA. Este guia cobre esse escopo real — "Métodos Ágeis" especificamente teve volume baixo no lote processado e não rendeu um bloco prescritivo próprio; vale complementar com Scrum/Kanban se houver lote específico disponível.

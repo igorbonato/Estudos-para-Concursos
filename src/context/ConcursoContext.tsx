@@ -7,7 +7,13 @@ export type Concurso = {
   data_prova: string | null
 }
 
-const DEFAULT_CONCURSO_NAMES = ['TRT4', 'SEFAZ-RS', 'PROCERGS', 'TJRS', 'TCE-RS']
+const DEFAULT_CONCURSOS: Omit<Concurso, 'id'>[] = [
+  { nome: 'TRT4', data_prova: '2027-01-31' }, // Edital nº 01/2026 (FCC)
+  { nome: 'SEFAZ-RS', data_prova: null },
+  { nome: 'PROCERGS', data_prova: null },
+  { nome: 'TJRS', data_prova: null },
+  { nome: 'TCE-RS', data_prova: null },
+]
 
 type ConcursoContextValue = {
   concursos: Concurso[]
@@ -110,7 +116,7 @@ export function ConcursoProvider({ children }: { children: ReactNode }) {
 
     const { data, error: insertError } = await supabase
       .from('concursos')
-      .insert(DEFAULT_CONCURSO_NAMES.map(nome => ({ nome })))
+      .insert(DEFAULT_CONCURSOS)
       .select()
 
     if (insertError) {

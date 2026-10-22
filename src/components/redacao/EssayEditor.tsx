@@ -1,6 +1,8 @@
 import { Sparkles, Loader2 } from 'lucide-react'
 import { BANCAS } from '../../types/redacao'
 
+const PALAVRAS_POR_LINHA = 10
+
 type Props = {
   banca: string
   setBanca: (v: string) => void
@@ -27,6 +29,16 @@ export default function EssayEditor({
   onAnalyze,
 }: Props) {
   const wordCount = texto.trim() ? texto.trim().split(/\s+/).length : 0
+  // Estimativa grosseira: uma linha manuscrita da folha da FCC comporta ~10 palavras.
+  const linhasEstimadas = Math.round(wordCount / PALAVRAS_POR_LINHA)
+  const linhasCor =
+    wordCount === 0
+      ? 'text-muted-foreground'
+      : linhasEstimadas <= 7
+        ? 'text-danger'
+        : linhasEstimadas < 20 || linhasEstimadas > 30
+          ? 'text-warning'
+          : 'text-success'
   const canAnalyze = Boolean(texto.trim() && banca && tema.trim()) && !loading
 
   return (
@@ -76,12 +88,17 @@ export default function EssayEditor({
       <textarea
         value={texto}
         onChange={e => setTexto(e.target.value)}
-        placeholder="Digite sua redação aqui...&#10;&#10;Dica: uma redação completa para concurso costuma ter entre 25 e 30 linhas."
+        placeholder="Digite sua redação aqui...&#10;&#10;FCC (TRT4 2026): dissertativo-argumentativo, 20 a 30 linhas, sem recuo de parágrafo. Até 7 linhas = nota zero."
         className="flex-1 resize-none bg-background p-8 text-sm leading-loose text-foreground outline-none placeholder:text-muted-foreground"
       />
 
       <div className="flex items-center justify-between border-t border-border bg-card px-6 py-3">
-        <span className="font-mono text-xs text-muted-foreground">{wordCount} palavras</span>
+        <span className="font-mono text-xs text-muted-foreground">
+          {wordCount} palavras ·{' '}
+          <span className={linhasCor} title="Estimativa: ~10 palavras por linha manuscrita. A FCC exige de 20 a 30 linhas.">
+            ≈ {linhasEstimadas} linhas (20 a 30)
+          </span>
+        </span>
         <button
           onClick={onAnalyze}
           disabled={!canAnalyze}

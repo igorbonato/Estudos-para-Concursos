@@ -1,5 +1,17 @@
 # 📘 Guia de Estudo Direcionado e Prescritivo — Arquitetura de Computadores (TRT 4ª Região)
 
+> ## 📌 Status no Edital TRT4 nº 01/2026 (FCC)
+> Legenda: **[A+T]** cai nos dois cargos · **[A]** só Analista TI (14) · **[T]** só Técnico TI (22). Referência completa: guia **Mapa do Edital 2026**.
+>
+> ❌ **Bloco REBAIXADO:** "Arquitetura de Computadores" **não aparece** no edital 2026 para nenhum dos dois cargos. Não invista horas novas aqui.
+>
+> ♻️ **O que ainda serve:** memória virtual, paginação, MMU/TLB (SO **[A]**); interrupções, DMA e armazenamento secundário/terciário (E/S em SO **[A]**); compiladores, montadores e ligadores ("compilação e execução" **[A+T]**); sistemas de numeração (apoio para sub-redes IPv4/IPv6 **[A+T]**).
+>
+> ⬇️ **Pular:** CPU/pipeline/RISC×CISC, barramentos, placa-mãe/BIOS/fonte, DDR, periféricos e manutenção de hardware.
+
+---
+
+
 > Gerado cruzando a seção "11. Arquitetura de Computadores" do conteúdo programático oficial (`conteudo_programatico.md`) com **315 questões** de Arquitetura de Computadores da FCC em `questoes_arquitetura_computadores_fcc.json`, pré-digeridas em 3 partes (`guia_estudos_subagentes/raw_md/41_arquitetura_computadores_parteN_de_3.md`).
 
 **Recorte deste guia:** o edital resume a seção a "Processador, Memória principal, Memória secundária, Dispositivos de entrada, Dispositivos de saída, Paralelismo, Multiprocessamento, Virtualização". O banco real é muito mais técnico e numérico do que esse resumo sugere: quase um terço das questões são de **cálculo direto** (conversão entre bases, aritmética binária/hexadecimal, endereçamento de memória, potência de fonte, largura de banda de RAM) — não basta saber o conceito, é preciso saber calcular rápido e sem erro. O restante cobre hardware físico com riqueza de detalhe (placa-mãe, fonte, manutenção, periféricos), arquitetura de processador (RISC×CISC, pipeline, Von Neumann×Harvard) e um pouco de compiladores.

@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { X, Loader2 } from 'lucide-react'
+import { BLOCOS_ESTUDO } from '../../data/blocosEstudo'
 
-const DISCIPLINAS = ['Português', 'Direito Constitucional', 'Informática', 'Direito Administrativo', 'Raciocínio Lógico']
+const DISCIPLINAS = BLOCOS_ESTUDO.map(b => b.nome)
 
 function todayIso(): string {
   return new Date().toISOString().slice(0, 10)

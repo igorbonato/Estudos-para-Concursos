@@ -1,5 +1,21 @@
 # 📘 Guia de Estudo Direcionado e Prescritivo — Sistemas Operacionais (TRT 4ª Região)
 
+> ## 📌 Status no Edital TRT4 nº 01/2026 (FCC)
+> Legenda: **[A+T]** cai nos dois cargos · **[A]** só Analista TI (14) · **[T]** só Técnico TI (22). Referência completa: guia **Mapa do Edital 2026**.
+>
+> ✅ **Válido, todo [A]:** processos e threads, escalonamento, comunicação e sincronização, deadlock e starvation; memória (segmentação, paginação, memória virtual); E/S; Linux (comandos, permissões, usuários, systemd, pacotes RPM/DNF); Active Directory, PowerShell, WSUS; Windows 10/11.
+>
+> ⚠️ **Desatualizado:** o edital pede **Windows Server 2019, 2022 e 2025** (este guia vai até 2019) e **Red Hat / Oracle Linux** (priorize RPM/DNF/systemd e deixe APT e YaST em segundo plano). Ver o guia **DevOps, Infra e Redes 2026**.
+>
+> ✅ **Containers (Docker/Kubernetes):** valem como **[A+T]** pela PDPJ-Br, e Nuvem/IaaS/PaaS/SaaS e serverless como **[T]**.
+>
+> ⬇️ **Rebaixar:** Hyper-V, VMware, Xen, KVM, RDS/RemoteApp/App-V, failover cluster/NLB, sistemas de arquivos ReiserFS/JFS.
+>
+> ⚠️ O **Técnico não tem SO** no edital. Este guia inteiro serve só ao Analista.
+
+---
+
+
 > Gerado cruzando a seção "13. Sistemas Operacionais" do conteúdo programático oficial (`conteudo_programatico.md`) com **621 questões** de Sistemas Operacionais da FCC em `questoes_sistemas_operacionais_fcc.json`, pré-digeridas em 5 partes (`guia_estudos_subagentes/raw_md/39_sistemas_operacionais_parteN_de_5.md`).
 
 **Recorte deste guia:** o edital resume a seção em "Conceitos Gerais (processos, threads, escalonamento, memória virtual, paginação, segmentação), Windows (10+, AD, RDS, Failover Cluster, WSUS, PowerShell) e Linux (RPM, DEB, Systemd, LVM, IPTables, Bash, Python)". O banco real é mais amplo e mais "histórico" do que esse resumo sugere: cobre praticamente toda a linha Windows Server desde 2003 até 2019 e Windows desktop de XP a 11, um volume enorme de comandos e sintaxe exata de Linux/Unix (não só conceito), virtualização Microsoft e VMware/Xen/KVM/containers em profundidade, e Cloud Computing (NIST SP 800-145). Active Directory sozinho é o subtema mais cobrado do banco inteiro.

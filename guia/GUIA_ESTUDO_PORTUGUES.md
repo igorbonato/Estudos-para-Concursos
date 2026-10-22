@@ -1,5 +1,19 @@
 # 📘 Guia de Estudo Direcionado e Prescritivo — Língua Portuguesa (TRT 4ª Região)
 
+> ## 📌 Status no Edital TRT4 nº 01/2026 (FCC)
+> Legenda: **[A+T]** cai nos dois cargos · **[A]** só Analista TI (14) · **[T]** só Técnico TI (22). Referência completa: guia **Mapa do Edital 2026**.
+>
+> ✅ **Válido, todo [A+T]:** concordância, regência, crase, vozes verbais, pronomes, colocação, correlação de tempos e modos, termos da oração, coordenação/subordinação e conectivos, discurso direto/indireto/indireto livre, pontuação, interpretação, coesão, figuras de linguagem, redação oficial e reescrita.
+>
+> 🆕 **Lacunas, cobertas no novo bloco ao final deste guia:** denotação e conotação, intertextualidade, relação do texto com o contexto histórico, formação de palavras, sinonímia e antonímia, flexão nominal e verbal, ortografia e acentuação.
+>
+> ✍️ **Redação** (grade FCC 2026): ver o guia **Redação FCC**.
+>
+> ⚖️ Português pesa duas vezes: é o 2º critério de desempate e é a base da redação.
+
+---
+
+
 > Gerado cruzando a seção "1. Língua Portuguesa" do conteúdo programático oficial (`conteudo_programatico.md`) com as **1.533 questões** de Português da FCC em `questoes_portugues_fcc.json`, pré-digeridas em 9 partes (`guia_estudos_subagentes/raw_md/19..27_portugues_parteN_de_9.md`).
 
 **Recorte deste guia:** ao contrário do lote de TI (onde muita coisa precisou ser descartada por não constar no edital — PHP, Delphi, React etc.), aqui praticamente 100% das questões são gramática normativa e interpretação de texto genuinamente dentro do escopo do edital. Não houve necessidade de filtragem por tecnologia. A única lacuna real é **Ortografia e Acentuação Gráfica** — o edital lista o item, mas o lote de questões fornecido tem pouquíssimos casos puros de ortografia/acentuação (a maioria das questões de "grafia" aparece embutida em pegadinhas de regência/crase, não como item isolado). Recomendo reforçar esse ponto específico direto pela gramática normativa, fora deste guia.
@@ -191,6 +205,50 @@
 **Alerta de Pegadinha:** a alternativa errada costuma "soar bem" e mudar sutilmente a relação lógica entre as orações (causa virando consequência, restritiva virando explicativa), ou esconder um único erro pontual de concordância/regência/crase/pontuação em meio a uma reescrita elegante. A alternativa correta costuma ser a "mais sem graça" gramaticalmente — não a mais bonita.
 
 **Ação Prática:** ao avaliar cada alternativa de reescritura, cheque sistematicamente 5 frentes em sequência: (1) a relação lógica entre as orações mudou? (2) concordância verbal/nominal está correta? (3) regência e crase estão corretas? (4) pontuação está correta? (5) colocação pronominal está correta? A alternativa que passar nas 5 é a resposta.
+
+---
+
+## 🧩 Itens do Edital 2026 sem bloco próprio 🆕 [A+T]
+
+> Escrito para cobrir itens do edital 2026 que tinham pouca ou nenhuma cobertura no banco processado. Não vem do banco de questões: treine com questões FCC de TRTs e do TRF4 (2025) filtradas por esses assuntos.
+
+### 🎯 Assunto: Denotação, Conotação e Significação Contextual
+**O que estudar obrigatoriamente:** **denotação** é o sentido literal, de dicionário. **Conotação** é o sentido figurado, que depende do contexto. A FCC quase nunca pergunta "isto é denotação?". Ela pede que você **substitua** uma palavra por outra "sem prejuízo do sentido", ou diga o sentido de uma expressão "no contexto". A resposta certa é a que serve **naquele** trecho, e não a de dicionário. Ligue isso a figuras de linguagem: metáfora e metonímia são conotação.
+**Por que estudar isso:** a substituição de vocábulos é das questões mais frequentes da FCC em interpretação.
+**Alerta de Pegadinha:** escolher o sinônimo de dicionário que muda o sentido no trecho (ex.: "a medida *encerra* riscos", em que *encerra* significa *contém*, e não *termina*).
+**Ação Prática:** em cada texto de questão que resolver, sublinhe 3 palavras usadas em sentido figurado e escreva um equivalente que caiba ali.
+
+---
+
+### 🎯 Assunto: Intertextualidade e Relação do Texto com o Contexto Histórico
+**O que estudar obrigatoriamente:** a **intertextualidade** é o diálogo de um texto com outro. As formas explícitas são citação, epígrafe e referência; as implícitas são **paráfrase** (retoma o sentido, a favor), **paródia** (retoma para subverter ou criticar), **alusão** e **pastiche**. Para a **relação com o contexto histórico**, a FCC usa crônicas e ensaios com marcas de época (datas, costumes, vocabulário) e pergunta o que o texto **pressupõe** do leitor da época, ou como uma afirmação deve ser lida "considerando o momento em que foi escrita".
+**Por que estudar isso:** são itens novos do edital, e a FCC cobra com textos literários e ensaísticos, comuns nas provas de TRT.
+**Alerta de Pegadinha:** confundir paráfrase (mantém o sentido) com paródia (inverte ou critica); julgar com valores de hoje um texto que o enunciado manda ler no contexto dele.
+**Ação Prática:** leia "Canção do Exílio" (Gonçalves Dias) e "Canto de regresso à pátria" (Oswald de Andrade) e classifique a relação entre eles (paródia).
+
+---
+
+### 🎯 Assunto: Estrutura e Formação de Palavras; Sinonímia e Antonímia
+**O que estudar obrigatoriamente:** elementos estruturais: **radical**, **vogal temática**, **tema**, **afixos** (prefixo e sufixo), **desinências** (nominais de gênero e número; verbais modo-temporais e número-pessoais) e vogal/consoante de ligação. Processos: **derivação** prefixal, sufixal, parassintética (prefixo + sufixo **simultâneos**, como *entardecer* e *enraivecer*), regressiva (*o combate*, de *combater*) e imprópria (mudança de classe: *o jantar*); **composição** por justaposição (*passatempo*, *girassol*) ou aglutinação (*planalto*, *aguardente*, com perda fonética); além de hibridismo, abreviação e sigla. **Sinonímia** e **antonímia** são sempre **contextuais** na FCC (veja o bloco de denotação acima). Inclua também parônimos (*eminente*/*iminente*, *ratificar*/*retificar*) e homônimos.
+**Por que estudar isso:** é item explícito do edital e cai como classificação direta ou dentro de questões de reescrita.
+**Alerta de Pegadinha:** classificar *infelizmente* como parassintética (é prefixal + sufixal, porque *infeliz* e *felizmente* existem sozinhas). O teste da parassíntese é: retirando um afixo, a palavra deixa de existir.
+**Ação Prática:** faça uma lista de 15 palavras e classifique cada uma aplicando o teste de "tirar um afixo".
+
+---
+
+### 🎯 Assunto: Flexão Nominal e Verbal
+**O que estudar obrigatoriamente:** **nominal**: gênero (substantivos uniformes epicenos, comuns de dois gêneros e sobrecomuns; palavras que mudam de sentido com o gênero, como *o/a cabeça* e *o/a capital*), número (plurais de compostos: *guardas-noturnos*, *guarda-chuvas*, *pés de moleque*), grau. **Verbal**: modo, tempo, pessoa, número e voz. Verbos irregulares e defectivos que a FCC adora: *intervir* e *convir* (seguem *vir*: *interveio*, *convieram*), *manter* e *deter* (seguem *ter*: *mantiveram*, *detiver*), *prever* (segue *ver*: *previram*), *requerer* (≠ *querer*: *requeiro*, *requereu*), *reaver* (só as formas com *v*: *reouve*), *precaver*, *adequar*. Ligue isso à correlação de tempos e modos já vista acima: *se ele **mantiver** / quando **intervierem***.
+**Por que estudar isso:** a FCC cobra formas verbais dentro de frases para reescrita ("a forma verbal está correta em...").
+**Alerta de Pegadinha:** *se ele manter* (o certo é *mantiver*), *quando eles intervirem* (o certo é *intervierem*), *eles reaveram* (o certo é *reouveram*).
+**Ação Prática:** conjugue *intervir*, *manter*, *prever* e *requerer* no pretérito perfeito e no futuro do subjuntivo e cole a tabela no caderno.
+
+---
+
+### 🎯 Assunto: Ortografia e Acentuação (reforço)
+**O que estudar obrigatoriamente:** as regras de acentuação depois do Acordo Ortográfico. Proparoxítonas: **todas** acentuadas. Paroxítonas: acentuadas se terminam em *r, x, n, l, ps, ã(s), ão(s), i(s), u(s), um/uns, ditongo*. Oxítonas: *a(s), e(s), o(s), em/ens*. Saíram: o acento dos ditongos abertos *éi/ói* em **paroxítonas** (*ideia*, *assembleia*, *heroico*; nas oxítonas fica: *papéis*, *herói*), o acento em *êe/ôo* (*creem*, *voo*) e o do *i/u* tônico depois de ditongo em paroxítona (*feiura*). Ficaram os diferenciais *pôde/pode* e *pôr/por*, além de *têm/vêm* no plural. Hífen com prefixos: há hífen quando o prefixo termina na mesma vogal que inicia a palavra (*micro-ondas*) ou quando ela começa com *h* (*anti-higiênico*); não há hífen com vogais diferentes (*autoestima*), e o *r*/*s* inicial é dobrado (*antirrábico*, *contrassenso*).
+**Por que estudar isso:** o guia original sinalizou essa cobertura como fraca, e o edital lista o item.
+**Alerta de Pegadinha:** acentuar *ideia* e *heroico*; tirar o acento de *papéis* e *herói* (oxítonas mantêm); escrever *contra-senso*.
+**Ação Prática:** faça um ditado de 30 palavras com essas regras e corrija pelo VOLP (Academia Brasileira de Letras).
 
 ---
 

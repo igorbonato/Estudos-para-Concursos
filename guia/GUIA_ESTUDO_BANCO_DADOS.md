@@ -1,5 +1,21 @@
 # 📘 Guia de Estudo Direcionado e Prescritivo — Banco de Dados (TRT 4ª Região)
 
+> ## 📌 Status no Edital TRT4 nº 01/2026 (FCC)
+> Legenda: **[A+T]** cai nos dois cargos · **[A]** só Analista TI (14) · **[T]** só Técnico TI (22). Referência completa: guia **Mapa do Edital 2026**.
+>
+> ✅ **Válido, todo [A]:** modelo E-R, normalização, SQL DML/DDL/DCL, consultas, transações e concorrência, SQL e PL/SQL, Oracle (agora **19c**), PostgreSQL, índices e views.
+>
+> ✅ **[A+T]:** **H2 Database e PostgreSQL no contexto da PDPJ-Br**. O Técnico não tem SQL "puro" no edital, mas a stack PDPJ cobra os dois.
+>
+> ⚠️ **Desatualizado:** PostgreSQL agora são as versões **15, 16, 17 e 18** (migração e compatibilidade com a 14). Ver o bloco no guia **PDPJ-Br e Stack Java**.
+>
+> ❌ **Fora do edital 2026 (rebaixar):** SQL Server, MySQL, Data Warehouse/BI/OLAP/ETL, Data Mining, Big Data/NoSQL, bancos distribuídos. Álgebra relacional vale só como apoio.
+>
+> 💡 Perfil forte (SQL Server, Oracle, modelagem): para este bloco, só questões.
+
+---
+
+
 > Gerado cruzando a seção "9. Banco de Dados" do conteúdo programático oficial (`conteudo_programatico.md`) com **932 questões** de Banco de Dados da FCC em `questoes_banco_dados_fcc.json`, pré-digeridas em 7 partes (`guia_estudos_subagentes/raw_md/40_banco_de_dados_parteN_de_7.md`).
 
 **Recorte deste guia:** o edital resume a seção a "Modelagem (relacional, ER), Linguagens (SQL, PL/SQL), SGBDs (Oracle 11g+, SQL Server, PostgreSQL, H2 Database), Business Intelligence (Data Warehouse, Data Mining, OLAP)". O banco real é consideravelmente mais amplo e mais granular: cobre sintaxe SQL exata (não só conceito) em 5 SGBDs distintos (Oracle, PostgreSQL, SQL Server, MySQL, H2/MS-Access), arquitetura interna de cada um (Oracle RMAN/AWR/tablespaces, SQL Server páginas/IAM/PFS, PostgreSQL VACUUM/pg_dump), modelagem ER com notação Crow's Foot detalhada, formas normais com exemplos numéricos, Big Data/NoSQL/ecossistema Hadoop-Spark, e um volume enorme de comparações "função X no SGBD A = função Y no SGBD B" que a FCC adora cobrar como distrator.

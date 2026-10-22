@@ -4,6 +4,13 @@
 
 Plataforma web pessoal de gestão de estudos focada em alta produtividade e preparação para concursos públicos da área de TI (TRT4, SEFAZ, etc.). O sistema não terá múltiplos usuários dinâmicos (uso estritamente pessoal).
 
+## 📄 Edital de Referência (TRT4 2026)
+
+* **Edital TRT4 nº 01/2026 (FCC)** substitui o de 2022. Fonte completa: `TRT4_2026_TI_atualizacao_projeto.md`; resumo e mapeamento em `guia/GUIA_ESTUDO_MAPA_EDITAL_2026.md`.
+* O candidato faz **dois cargos** no mesmo dia (31/01/2027): Técnico TI (22, manhã) e Analista TI (14, tarde).
+* Todo material de estudo usa a legenda **[A+T]** (cai nos dois), **[A]** (só Analista) e **[T]** (só Técnico).
+* Dados do app: edital verticalizado em `src/data/editalTRT4.ts`, plano de 14 semanas (15h/semana) em `src/data/planoEstudos.ts`, blocos de estudo e cores em `src/data/blocosEstudo.ts`. A redação usa a grade FCC (0–10, mínimo 6,00) em `src/lib/gemini.ts`.
+
 ## 🛠️ Stack Tecnológico
 
 * **Front-end:** React (Vite) com TypeScript.

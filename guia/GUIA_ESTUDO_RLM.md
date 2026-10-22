@@ -1,5 +1,19 @@
 # 📘 Guia de Estudo Direcionado e Prescritivo — Raciocínio Lógico-Matemático (TRT 4ª Região)
 
+> ## 📌 Status no Edital TRT4 nº 01/2026 (FCC)
+> Legenda: **[A+T]** cai nos dois cargos · **[A]** só Analista TI (14) · **[T]** só Técnico TI (22). Referência completa: guia **Mapa do Edital 2026**.
+>
+> ✅ **Válido, todo [A+T]:** aritmética (porcentagem, razão/proporção, regra de três, MMC/MDC, frações, expressões), orientação espacial e temporal, estruturas lógicas, dedução, verdades e mentiras, sequências, lógica proposicional.
+>
+> 🔄 **Saiu da lista "Fora do escopo" e agora CAI:** **estatística descritiva** (moda, mediana, média simples e ponderada), **dispersão** (amplitude, desvio médio, variância, desvio padrão) e **leitura de gráficos e tabelas** (histograma, setores, infográficos). Material novo no bloco ao final deste guia.
+>
+> ❌ **Continua fora:** álgebra linear, matrizes, geometria, funções, PA/PG, probabilidade formal, matemática financeira, combinatória formal.
+>
+> ⚠️ O edital cita só regra de três **simples**. A composta vale apenas como treino.
+
+---
+
+
 > Gerado cruzando a seção "2. Raciocínio Lógico-Matemático" do conteúdo programático oficial (`conteudo_programatico.md`) com as **800 questões** de RLM da FCC em `questoes_rlm_fcc.json`, pré-digeridas em 5 partes (`guia_estudos_subagentes/raw_md/32..36_rlm_parteN_de_5.md`).
 
 **Recorte deste guia:** o edital define "Raciocínio Lógico-Matemático" de forma **restrita** — só Aritmética básica (inteiros/racionais, divisibilidade, frações, razão/proporção/regra de três/porcentagem) e Lógica (estruturas lógicas, raciocínio verbal/sequencial/espacial/temporal, lógica proposicional). O banco de questões, por vir de um pool genérico de "Matemática para concursos", traz **muito conteúdo de Matemática pura fora deste edital** (Álgebra Linear, Geometria, Funções, Progressões, Probabilidade, Estatística, Matemática Financeira) — filtrado igual à rodada de TI (PHP/Delphi/React) e listado na seção final "Fora do escopo".
@@ -254,6 +268,42 @@
 
 ---
 
+## 🧩 Estatística e Gráficos 🆕 (Edital 2026) [A+T]
+
+> Bloco escrito para o edital 2026, que trouxe estatística de volta ao RLM. Não vem do banco de questões processado, então treine com questões FCC de "Estatística descritiva" de TRTs e TRF (2019 em diante). O nível cobrado é o de cálculo à mão, sem calculadora.
+
+### 🎯 Assunto: Média Aritmética Simples e Ponderada
+**O que estudar obrigatoriamente:** média simples = soma ÷ quantidade. Média ponderada = Σ(valor × peso) ÷ Σ(pesos). A **própria nota objetiva do TRT4** é uma ponderada: (Gerais × 1 + Específicos × 2) / 3. Propriedades que a FCC cobra sem pedir conta: somar uma constante *k* a todos os valores soma *k* à média; multiplicar todos por *k* multiplica a média por *k*; incluir um valor igual à média não a altera. Problema clássico de "média que muda": se a média de *n* valores é *m* e entra um valor *x*, a nova média é (n·m + x)/(n + 1). Para descobrir o valor que saiu, use a soma total (n·m), nunca as médias.
+**Por que estudar isso:** é a base de quase toda questão de estatística da FCC, que gosta de problemas de notas, salários e idades com valores retirados ou incluídos.
+**Alerta de Pegadinha:** tirar a "média das médias" de grupos de tamanhos diferentes (o certo é ponderar pelo tamanho de cada grupo); esquecer de dividir pela soma dos **pesos**, e não pela quantidade de valores.
+**Ação Prática:** calcule sua própria nota objetiva em 3 cenários (Gerais 6/Específicos 8, 8/6, 7/7) e veja por que acertar Específicos rende o dobro.
+
+---
+
+### 🎯 Assunto: Moda e Mediana (dados brutos e tabelas de frequência)
+**O que estudar obrigatoriamente:** **moda** é o valor mais frequente. Pode ser amodal, bimodal ou multimodal. **Mediana** é o valor central do rol **ordenado**: com *n* ímpar, é o termo (n+1)/2; com *n* par, é a média dos termos n/2 e n/2+1. Em tabela de frequência, acumule as frequências até passar de 50% para achar a classe/valor mediano. Relação com assimetria: média = mediana = moda na distribuição simétrica; com cauda à direita (assimetria positiva), moda < mediana < média; com cauda à esquerda, o contrário. A mediana é **resistente** a valores extremos, e a média não.
+**Por que estudar isso:** a FCC costuma dar uma tabela de frequências (ex.: número de processos por servidor) e pedir média, moda e mediana ao mesmo tempo, comparando-as.
+**Alerta de Pegadinha:** calcular a mediana **sem ordenar** os dados; em *n* par, pegar só um dos termos centrais; confundir a frequência da moda com o valor da moda.
+**Ação Prática:** monte um rol de 10 salários com um outlier (ex.: R$ 50.000) e compare média e mediana. Fixe por que a mediana "não se mexe".
+
+---
+
+### 🎯 Assunto: Medidas de Dispersão: Amplitude, Desvio Médio, Variância e Desvio Padrão
+**O que estudar obrigatoriamente:** **amplitude total** = máximo − mínimo. **Desvio médio** = média dos |xᵢ − x̄| (em **módulo**). **Variância** = média dos (xᵢ − x̄)². A populacional divide por *n*; a amostral divide por *n − 1*. A FCC costuma dizer qual usar, e na dúvida o enunciado fala em "população". **Desvio padrão** = √variância, na mesma unidade dos dados. Atalho de conta: variância = (média dos quadrados) − (quadrado da média). Propriedades: somar uma constante **não altera** nenhuma medida de dispersão; multiplicar por *k* multiplica o desvio padrão por |k| e a variância por k². **Coeficiente de variação** = desvio padrão ÷ média, para comparar dispersões em escalas diferentes.
+**Por que estudar isso:** está escrito literalmente no edital ("desvio médio, amplitude, variância, desvio padrão"), e são contas curtas, ótimas para a FCC.
+**Alerta de Pegadinha:** esquecer o módulo no desvio médio (sem ele a soma dá sempre zero); achar que somar 10 a todos os valores aumenta o desvio padrão; trocar *n* por *n − 1* contra o que o enunciado pede.
+**Ação Prática:** para {2, 4, 4, 4, 5, 5, 7, 9}, calcule à mão: média = 5, desvio médio = 1,5, variância populacional = 4, desvio padrão = 2. Refaça somando 3 a todos e confirme que só a média muda.
+
+---
+
+### 🎯 Assunto: Leitura de Gráficos e Tabelas (histograma, setores, infográficos)
+**O que estudar obrigatoriamente:** **histograma** tem barras **contíguas** para classes de uma variável contínua, e a área de cada barra é proporcional à frequência. No gráfico de colunas comum, as barras são separadas e as categorias, discretas. No **gráfico de setores (pizza)**, cada fatia vale percentual × 360°, então 25% = 90° e 1% = 3,6°. Em **tabelas de frequência**, distinga absoluta, relativa (%) e acumulada. Leia título, unidade, escala e eixo truncado **antes** de calcular. Em infográficos, a FCC cobra variação percentual entre dois anos: (novo − antigo)/antigo.
+**Por que estudar isso:** são as questões "de graça" da prova, com conta simples e perigo só na leitura. A FCC mistura com porcentagem.
+**Alerta de Pegadinha:** calcular a variação percentual sobre o valor **novo**; confundir "pontos percentuais" com "por cento" (de 10% para 15% são +5 p.p., mas +50%); ignorar o eixo vertical que não começa em zero.
+**Ação Prática:** pegue 3 infográficos do IBGE ou de jornal e escreva, para cada um, 2 afirmações verdadeiras e 2 falsas no estilo FCC.
+
+---
+
 # ✅ Fora do escopo (ignorado deliberadamente)
 
 O banco de questões vem de um pool genérico de "Matemática para concursos" e contém bastante conteúdo que **não consta** na seção "2. Raciocínio Lógico-Matemático" deste edital (que é restrita a Aritmética básica + Lógica). Foi descartado, no mesmo espírito da filtragem aplicada ao lote de TI:
@@ -266,7 +316,7 @@ O banco de questões vem de um pool genérico de "Matemática para concursos" e 
 | **Funções** (1º grau, exponencial, equações polinomiais) | Não consta no edital |
 | **Progressões** (PA e PG) | Não consta no edital |
 | **Probabilidade** (formal — urnas, dados, distribuições, filas M/M/1) | Não consta no edital |
-| **Estatística** (média/moda/mediana/variância formal, desvio padrão) | Não consta no edital (mesmo aparecendo em problemas de idade misturados) |
+| ~~**Estatística**~~ 🔄 | **Voltou no edital 2026 [A+T]**: moda, mediana, média simples e ponderada, amplitude, desvio médio, variância, desvio padrão e gráficos. Ver o bloco **Estatística e Gráficos** abaixo |
 | **Matemática Financeira** (juros simples/compostos, IPCA, depreciação) | Não consta no edital |
 | **Análise Combinatória formal** (fórmulas de arranjo/combinação/permutação com repetição) | Não consta no edital — mas contagem informal por enumeração dentro de um problema de lógica **foi mantida** (ver "Casa dos Pombos e Contagem por Enumeração" acima) |
 | **Produtos Notáveis e Fatoração** | Não consta no edital |

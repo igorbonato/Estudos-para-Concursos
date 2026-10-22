@@ -1,5 +1,19 @@
 # 📘 Guia de Estudo Direcionado e Prescritivo — Arquitetura de Software e Correlatos (TRT 4ª Região)
 
+> ## 📌 Status no Edital TRT4 nº 01/2026 (FCC)
+> Legenda: **[A+T]** cai nos dois cargos · **[A]** só Analista TI (14) · **[T]** só Técnico TI (22). Referência completa: guia **Mapa do Edital 2026**.
+>
+> ✅ **Válido:** padrões de projeto GoF **[T]**; UML (agora **2.5.1**) **[A+T]**; SOA (conceitos) **[A]**; REST **[A+T]**; microsserviços com Spring Cloud (Eureka/Zuul/Gateway) **[A+T]**; camadas/multicamadas e cliente-servidor **[A+T]**; mensageria e eventos **[A+T]**; Scrum/XP/Kanban **[A+T]**; cascata e metodologias tradicionais **[T]**; testes **[T]**.
+>
+> ⚠️ **Desatualizado:** **CMMI-DEV v2.0 → CMMI v3.0 (domínio Development)**; **MPS.BR → MR-MPS-SW 2024**; PMBOK 6ª → **8ª edição [A]**. Ver o guia **IA e Engenharia de Software 2026** e **Gestão, Governança e Processos 2026**.
+>
+> ❌ **Fora do edital 2026:** WCAG/eMAG, ERP, GED. SOAP/WSDL/UDDI só como contraste. Portais continuam no **[A]** como "internet, extranet, intranet e portal".
+>
+> 🆕 **Lacunas:** engenharia de requisitos, BPMN, low-code/no-code, assistentes de IA no desenvolvimento, objetos distribuídos.
+
+---
+
+
 > Gerado a partir das **202 questões** rotuladas "Arquitetura de Software" dentro de `questoes_seguranca_informacao_and_arquitetura_software_fcc.json`, intercaladas com as de Segurança da Informação e pré-digeridas nas mesmas 5 partes usadas pelo `GUIA_ESTUDO_SEGURANCA_INFORMACAO.md` (`guia_estudos_subagentes/raw_md/37_seguranca_parteN_de_5.md`).
 
 **Recorte deste guia — leia antes de estudar:** "Arquitetura de Software" **não é uma disciplina coesa** neste banco de questões — é o rótulo que o scraper/FCC usa para um bucket amplo de conhecimentos gerais de TI que não se encaixam em "Segurança da Informação". Na prática, as 202 questões cobrem pelo menos 6 áreas distintas do edital:

@@ -15,6 +15,21 @@ const RESPONSE_SCHEMA: Schema = {
   properties: {
     notaFinal: { type: SchemaType.NUMBER },
     notaMaxima: { type: SchemaType.NUMBER },
+    criterios: {
+      type: SchemaType.ARRAY,
+      items: {
+        type: SchemaType.OBJECT,
+        properties: {
+          grupo: { type: SchemaType.STRING },
+          criterio: { type: SchemaType.STRING },
+          nota: { type: SchemaType.NUMBER },
+          notaMaxima: { type: SchemaType.NUMBER },
+          comentario: { type: SchemaType.STRING },
+        },
+        required: ['grupo', 'criterio', 'nota', 'notaMaxima', 'comentario'],
+      },
+    },
+    motivoNotaZero: { type: SchemaType.STRING },
     correcoesGramaticais: {
       type: SchemaType.ARRAY,
       items: {
@@ -38,8 +53,23 @@ const RESPONSE_SCHEMA: Schema = {
       required: ['titulo', 'texto'],
     },
   },
-  required: ['notaFinal', 'notaMaxima', 'correcoesGramaticais', 'fazer', 'nuncaFazer', 'redacaoNota1000'],
+  required: ['notaFinal', 'notaMaxima', 'criterios', 'correcoesGramaticais', 'fazer', 'nuncaFazer', 'redacaoNota1000'],
 }
+
+// Grade da FCC no Edital TRT4 nº 01/2026 (soma 10,00).
+const GRADE_FCC = `GRADE OFICIAL (FCC – TRT4 2026), total 10,00:
+1. Grupo "Tema" (7,00):
+   - "Recorte temático" (até 2,00)
+   - "Interpretação crítica dos textos de apoio" (até 2,00)
+   - "Progressão textual" (até 3,00)
+2. Grupo "Norma-padrão" (3,00):
+   - "Propriedade vocabular" (até 0,80)
+   - "Coesão" (até 1,60)
+   - "Morfossintaxe" (até 0,60)
+Atribua NOTA ZERO (todos os critérios = 0 e explique em motivoNotaZero) se houver: fuga ao tema ou ao gênero dissertativo-argumentativo; texto com até 7 linhas; identificação do candidato; cópia dos textos de apoio.
+Extensão esperada: 20 a 30 linhas manuscritas. A FCC orienta NÃO marcar recuo de parágrafo. O tema é de interesse geral, não ligado aos Conhecimentos Específicos. Nota mínima para aprovação: 6,00.`
+
+const GRADE_GENERICA = `Use os critérios típicos dessa banca, agrupados em "Tema/Conteúdo" e "Norma-padrão/Expressão", normalizando a soma para 10,00. Se houver fuga ao tema/gênero, atribua nota zero e explique em motivoNotaZero.`
 
 type AnalisarRedacaoInput = {
   banca: string
@@ -49,18 +79,23 @@ type AnalisarRedacaoInput = {
 }
 
 function buildPrompt({ banca, cargo, tema, texto }: AnalisarRedacaoInput): string {
-  return `Você é um corretor especialista em redações de concursos públicos brasileiros, atuando como se fosse um avaliador da banca "${banca}" para o cargo de "${cargo}".
+  const grade = banca === 'FCC' ? GRADE_FCC : GRADE_GENERICA
+
+  return `Você é um corretor especialista em redações de concursos públicos brasileiros, atuando como avaliador da banca "${banca}" para o cargo de "${cargo || 'Analista/Técnico Judiciário – TI'}".
 
 Tema da redação: "${tema}"
 
-Avalie a redação abaixo segundo os critérios técnicos dessa banca (norma culta, coesão, argumentação, adequação ao tema e, quando pertinente, conhecimento de Direito Administrativo/Constitucional). Aponte erros gramaticais reais encontrados no texto (crase, regência, concordância, pontuação), sugestões de argumentação para o candidato ("o que fazer") e erros críticos ou clichês que essa banca costuma penalizar ("o que nunca fazer"). Ao final, escreva uma redação nota 1000 sobre o mesmo tema, como exemplo.
+${grade}
+
+Avalie a redação abaixo com o rigor real da banca. Preencha "criterios" com uma entrada por critério da grade (grupo, criterio, nota, notaMaxima, comentario curto e específico, citando trechos do texto). notaFinal = soma das notas dos critérios, de 0 a 10, com duas casas decimais; notaMaxima sempre 10. Se não houver motivo de nota zero, deixe motivoNotaZero como string vazia.
+Aponte erros gramaticais reais do texto (crase, regência, concordância, pontuação, colocação pronominal), sugestões de argumentação ("fazer") e erros críticos ou clichês que a banca penaliza ("nuncaFazer"). Ao final, escreva uma redação modelo nota máxima sobre o mesmo tema, com 25 a 30 linhas, parágrafos separados por linha em branco, sem título se a banca não exigir (nesse caso use o tema como titulo).
 
 Redação do candidato:
 """
 ${texto}
 """
 
-Responda ESTRITAMENTE em JSON, sem markdown e sem nenhum texto fora do JSON, com notaFinal de 0 a 100 e notaMaxima sempre 100.`
+Responda ESTRITAMENTE em JSON, sem markdown e sem nenhum texto fora do JSON.`
 }
 
 export async function analisarRedacao(input: AnalisarRedacaoInput): Promise<RedacaoFeedback> {

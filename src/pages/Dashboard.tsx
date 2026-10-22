@@ -10,6 +10,8 @@ import RecentSessions from '../components/dashboard/RecentSessions'
 import DisciplineProgress from '../components/dashboard/DisciplineProgress'
 import EditalCard from '../components/dashboard/EditalCard'
 import EditalModal from '../components/dashboard/EditalModal'
+import PlanoSemanalCard from '../components/dashboard/PlanoSemanalCard'
+import { useEditalProgresso } from '../lib/useEditalProgresso'
 
 const DISCIPLINE_COLORS = ['#61dafb', '#3b82f6', '#a78bfa', '#f59e0b', '#22c55e']
 
@@ -68,6 +70,8 @@ export default function Dashboard() {
   const [loadingDisciplinas, setLoadingDisciplinas] = useState(true)
 
   const [editalOpen, setEditalOpen] = useState(false)
+  const { concluidos, toggle } = useEditalProgresso()
+  const [cronogramaVersao, setCronogramaVersao] = useState(0)
 
   const refetchSessoes = async () => {
     setLoadingSessions(true)
@@ -119,9 +123,17 @@ export default function Dashboard() {
       .select('*', { count: 'exact', head: true })
     if (!countError) setRedacoesCount(count ?? 0)
 
-    const { data, error } = await supabase.from('redacoes').select('nota_ia')
+    // Redações antigas foram corrigidas de 0 a 100; as novas (grade FCC), de 0 a 10.
+    const { data, error } = await supabase
+      .from('redacoes')
+      .select('nota_ia, nota_maxima:feedback_estruturado_ia->notaMaxima')
     if (!error) {
-      const notas = (data ?? []).map(r => r.nota_ia).filter((n): n is number => n != null)
+      const notas = (data ?? [])
+        .filter(r => r.nota_ia != null)
+        .map(r => {
+          const max = Number(r.nota_maxima) || (r.nota_ia > 10 ? 100 : 10)
+          return (r.nota_ia * 10) / max
+        })
       setRedacoesMedia(notas.length ? notas.reduce((sum, n) => sum + n, 0) / notas.length : null)
     }
   }
@@ -202,7 +214,7 @@ export default function Dashboard() {
           accentColor="#a78bfa"
           value={redacoesCount != null ? String(redacoesCount) : '—'}
           label="Redações Corrigidas"
-          sub={redacoesMedia != null ? `Média: ${redacoesMedia.toFixed(1)}/100` : 'Sem redações ainda'}
+          sub={redacoesMedia != null ? `Média: ${redacoesMedia.toFixed(2).replace('.', ',')}/10` : 'Sem redações ainda'}
           icon={
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path
@@ -233,16 +245,18 @@ export default function Dashboard() {
         />
       </div>
 
-      <EditalCard onOpen={() => setEditalOpen(true)} />
+      <EditalCard onOpen={() => setEditalOpen(true)} concluidos={concluidos} />
 
-      <CalendarioEstudos onSessionLogged={refetchSessoes} />
+      <PlanoSemanalCard onCronogramaAlterado={() => setCronogramaVersao(v => v + 1)} />
+
+      <CalendarioEstudos onSessionLogged={refetchSessoes} reloadKey={cronogramaVersao} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <RecentSessions sessions={recentSessions} loading={loadingSessions} />
         <DisciplineProgress items={disciplinaProgress} loading={loadingDisciplinas} />
       </div>
 
-      {editalOpen && <EditalModal onClose={() => setEditalOpen(false)} />}
+      {editalOpen && <EditalModal onClose={() => setEditalOpen(false)} concluidos={concluidos} onToggle={toggle} />}
     </div>
   )
 }

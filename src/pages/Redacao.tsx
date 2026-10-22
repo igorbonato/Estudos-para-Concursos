@@ -9,8 +9,8 @@ import FeedbackPanel from '../components/redacao/FeedbackPanel'
 export default function Redacao() {
   const { selectedConcurso } = useConcurso()
 
-  const [banca, setBanca] = useState('')
-  const [cargo, setCargo] = useState('')
+  const [banca, setBanca] = useState('FCC')
+  const [cargo, setCargo] = useState('Analista e Técnico Judiciário – TI (TRT4)')
   const [tema, setTema] = useState('')
   const [texto, setTexto] = useState('')
   const [loading, setLoading] = useState(false)

@@ -1,5 +1,21 @@
 # 📘 Guia de Estudo Direcionado e Prescritivo — Desenvolvimento de Software, Frameworks e Frontend (TRT 4ª Região)
 
+> ## 📌 Status no Edital TRT4 nº 01/2026 (FCC)
+> Legenda: **[A+T]** cai nos dois cargos · **[A]** só Analista TI (14) · **[T]** só Técnico TI (22). Referência completa: guia **Mapa do Edital 2026**.
+>
+> ✅ **Válido:** Java OO, tipos, operadores e trace **[A+T]** (OO detalhada é [T]); Spring/Spring Boot/Spring Cloud, JPA/Hibernate, MapStruct, JDBC/acesso a banco **[A+T]** (núcleo da PDPJ-Br); HTML5/CSS3, JavaScript, TypeScript, XML/XSD, JSON **[A+T]**; Python **[A]/[T]**; Angular, jQuery, Node.js, Bootstrap **[A]/[T]**; JUnit/Mockito **[T]**; JBoss/WildFly **[A]/[T]**; ELK **[T]** (e monitoramento [A]); tipagem e paradigmas **[A+T]**.
+>
+> ⚠️ **Desatualizado:** JUnit 5 → **JUnit 6**; Jakarta EE 8 → **EE 8 e EE 11** (namespace `jakarta.*`); JPA 2.0 → também **Jakarta Persistence 3.2 / Hibernate ORM 7.x**; REST → acrescentar **OpenAPI/Swagger e JWT [T]**. Ver o guia **PDPJ-Br e Stack Java**.
+>
+> 🔄 **A tabela "Fora do escopo" no fim deste guia está ERRADA para 2026:** PHP, Delphi, C, C#/.NET, Visual Basic, React, React Native e Vue.js **agora caem no Analista [A]** (e React/Vue também no Técnico [T]). Ver o guia **Linguagens (Analista)**.
+>
+> ⬇️ **Rebaixar:** EJB, Tomcat, SOAP (só conceitos de SOA [A]), DTD (o edital cita XML Schema).
+>
+> 🆕 **IA/ML** ficou maior no Analista (redes neurais, IA generativa e LLMs): ver o guia **IA e Engenharia de Software 2026**.
+
+---
+
+
 > Gerado cruzando as seções "1. Desenvolvimento Web", "2. Frameworks Java", "3. APIs e Web Services", "4. Elastic Stack", "6. Testes de Software" e "8. Inteligência Artificial e Machine Learning" do conteúdo programático oficial (`conteudo_programatico.md`) com questões da FCC em `questoes_tech_fcc.json`, pré-digeridas em 18 resumos (`guia_estudos_subagentes/raw_md/01_programacao_parte1_de_9.md` a `18_estrutura_dados_algoritmos.md`).
 
 **Recorte deste guia:** os resumos de questões fornecidos cobrem, com profundidade, as áreas **1. Desenvolvimento Web, 2. Frameworks Java, 3. APIs e Web Services e 9. Banco de Dados** do edital (mais um pouco de 6. Testes de Software e 8. IA/ML). As áreas **Redes, Sistemas Operacionais, Segurança da Informação, Computação em Nuvem, Governança de TI, Arquitetura de Computadores e a maior parte de DevOps** praticamente não apareciam no lote de questões originalmente analisado — todas elas já ganharam guias dedicados próprios neste mesmo diretório (`GUIA_ESTUDO_REDES.md`, `GUIA_ESTUDO_SISTEMAS_OPERACIONAIS.md`, `GUIA_ESTUDO_SEGURANCA.md`, `GUIA_ESTUDO_GOVERNANCA_TI.md`, `GUIA_ESTUDO_ARQUITETURA_COMPUTADORES.md`, `GUIA_ESTUDO_BANCO_DADOS.md`), gerados depois deste com um pipeline mais rigoroso. As únicas lacunas remanescentes do edital sem cobertura em nenhum guia (Armazenamento SAN/RAID, Testes de Software além de JUnit/Mockito, DevOps além de menções pontuais, Inglês Técnico) seguem listadas ao final.
@@ -350,21 +366,23 @@
 
 # ✅ Fora do escopo (ignorado deliberadamente)
 
-As tecnologias abaixo aparecem nas questões do banco, mas **não constam no edital do TRT4** e foram descartadas por completo, conforme a regra de filtragem estrita:
+> ⚠️ **Revisado para o Edital 2026:** esta tabela foi montada com o edital antigo. As linhas marcadas com 🔄 **voltaram ao edital** no Analista TI **[A]**, que agora pede "conhecimento profundo" de Visual Basic, Delphi, PHP, Python, C, Java e C#/.NET, além de React, React Native e Vue.js. Os `raw_md` descartados dessas linguagens voltam a ser úteis: ver o guia **Linguagens (Analista)**.
+
+As tecnologias abaixo aparecem nas questões do banco e foram descartadas na época por não constarem no edital antigo:
 
 | Tecnologia/Linguagem | Onde apareceria | Motivo da exclusão |
 |---|---|---|
-| **PHP** (superglobais, arrays, PDO, sessões) | Arquivo `16_php.md` inteiro + trechos em `13_banco_de_dados` e `15_outros` | Não consta em nenhum item do edital |
-| **Delphi/VCL** (TTable, TQuery, componentes, .pas/.dfm/.dpr) | Partes 8/9 de programação | Não consta no edital |
+| 🔄 **PHP** (superglobais, arrays, PDO, sessões) | Arquivo `16_php.md` inteiro + trechos em `13_banco_de_dados` e `15_outros` | **Voltou no edital 2026 [A]** |
+| 🔄 **Delphi/VCL** (TTable, TQuery, componentes, .pas/.dfm/.dpr) | Partes 8/9 de programação | **Voltou no edital 2026 [A]** |
 | **Ruby / Ruby on Rails** | Arquivo `15_outros_diversos.md` | Não consta no edital |
-| **C e C++** (ponteiros, STL, `#define`) | Partes 2, 5, 7, 8 de programação | Não consta no edital (só Java/JS/TS/Python/Angular estão listados) |
-| **C# / .NET / VB.NET / ADO.NET / EF Core** | Partes 4, 5, 8, 9 e `13_banco_de_dados` | Não consta no edital |
+| 🔄 **C** (ponteiros, `#define`) · C++ continua fora | Partes 2, 5, 7, 8 de programação | **C voltou no edital 2026 [A]**; C++/STL continuam fora |
+| 🔄 **C# / .NET / VB.NET / ADO.NET / EF Core** | Partes 4, 5, 8, 9 e `13_banco_de_dados` | **Voltou no edital 2026 [A]** (C#, Visual Basic, .NET, ASP.NET Core) |
 | **Objective-C** | Parte 5 de programação | Não consta no edital |
 | **VBScript** | Arquivo `15_outros_diversos.md` | Não consta no edital |
-| **React / React Native / Vue.js** | Partes 1, 2 de programação e `17_frontend_frameworks.md` | Edital cita só **Angular** em Frameworks/Linguagens JS |
+| 🔄 **React / React Native / Vue.js** | Partes 1, 2 de programação e `17_frontend_frameworks.md` | **Voltou no edital 2026**: React/RN/Vue **[A]**; React/Vue **[T]** |
 | **Java Swing/AWT** (JButton, layouts desktop) | Partes 4, 8 de programação | Edital é focado em Desenvolvimento **Web**, sem menção a GUI desktop |
 | **Struts2 / JBoss Seam** | Arquivo `15_outros_diversos.md` e parte 7 | Frameworks de terceiros, não fazem parte da spec "Jakarta EE 8" citada no edital |
-| **GlassFish / WebLogic / WebSphere** | Diversas partes (como contraste a Tomcat/JBoss) | Edital cita só **JBoss, Tomcat e WildFly** como servidores de aplicação |
+| **GlassFish / WebLogic / WebSphere** | Diversas partes (como contraste a Tomcat/JBoss) | Edital 2026 cita só **JBoss EAP/WildFly**, além de Apache HTTP Server e IIS como servidores web. Tomcat também saiu |
 
 ---
 

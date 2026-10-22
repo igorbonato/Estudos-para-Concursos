@@ -2,26 +2,15 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { CalendarClock, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import type { CronogramaItem } from '../../types/dashboard'
+import { corDoTitulo } from '../../data/blocosEstudo'
 import AddMetaModal from './AddMetaModal'
 
 type Props = {
   onSessionLogged: () => void
+  reloadKey?: number
 }
 
 const WEEKDAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
-
-const DISCIPLINA_COLORS: Record<string, string> = {
-  Português: '#a78bfa',
-  'Direito Constitucional': '#61dafb',
-  Informática: '#22c55e',
-  'Direito Administrativo': '#3b82f6',
-  'Raciocínio Lógico': '#f59e0b',
-}
-const DEFAULT_COLOR = '#61dafb'
-
-function colorFor(titulo: string): string {
-  return DISCIPLINA_COLORS[titulo] ?? DEFAULT_COLOR
-}
 
 function dateKey(d: Date): string {
   return d.toLocaleDateString('en-CA')
@@ -38,7 +27,7 @@ function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-export default function CalendarioEstudos({ onSessionLogged }: Props) {
+export default function CalendarioEstudos({ onSessionLogged, reloadKey = 0 }: Props) {
   const [mesAtual, setMesAtual] = useState(() => {
     const d = new Date()
     d.setDate(1)
@@ -85,7 +74,7 @@ export default function CalendarioEstudos({ onSessionLogged }: Props) {
   useEffect(() => {
     loadItens()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [year, month])
+  }, [year, month, reloadKey])
 
   const itensPorDia = itens.reduce<Record<string, CronogramaItem[]>>((acc, item) => {
     ;(acc[item.data_prevista] ??= []).push(item)
@@ -231,7 +220,7 @@ export default function CalendarioEstudos({ onSessionLogged }: Props) {
                         className={`truncate rounded px-1 py-0.5 text-[10px] font-medium text-white ${
                           item.status ? 'opacity-40 line-through' : ''
                         } ${togglingId === item.id ? 'pointer-events-none animate-pulse' : ''}`}
-                        style={{ backgroundColor: colorFor(item.titulo) }}
+                        style={{ backgroundColor: corDoTitulo(item.titulo) }}
                       >
                         {item.titulo} · {formatDuracaoCompacta(item.duracao_minutos)}
                       </span>
